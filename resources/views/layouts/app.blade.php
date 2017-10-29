@@ -12,9 +12,13 @@
 </head>
 <body>
 
-<div class="container">
+<div ng-app="poMoodleApp" ng-strict-di>
+
     @yield('content')
+
 </div>
+
+<script src="{{asset('js/scripts.js')}}"></script>
 
 </body>
 </html>

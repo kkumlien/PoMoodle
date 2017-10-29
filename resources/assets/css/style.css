@@ -1,13 +1,13 @@
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 body, html {
     height: 100%;
     background-repeat: no-repeat;
     background-image: linear-gradient(rgb(255, 153, 0), rgb(255, 85, 0));
     background-attachment: fixed;
-}
-
-body {
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 .login-panel {
@@ -95,5 +95,6 @@ header {
 
 .content {
     padding: 5px;
+    background-color: #FFFFFF;
 }
 
