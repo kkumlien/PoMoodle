@@ -4,9 +4,12 @@ angular.module('poMoodleApp').component('studentCharts', {
     controllerAs: 'vm'
 });
 
-angular.module('poMoodleApp').controller('studentChartsController', [function () {
+angular.module('poMoodleApp').controller('studentChartsController', ['chartFactory', function (chartFactory) {
     var vm = this;
     vm.$onInit = function () {
-        console.log("studentCharts");
+        vm.chart = {
+            type: 'column',
+            data: chartFactory.getMockSeriesAndDrilldownData()
+        };
     }
 }]);
