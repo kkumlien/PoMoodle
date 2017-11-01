@@ -10,15 +10,15 @@
 
         <div class="nav container">
             <uib-tabset active="activeForm">
-                <uib-tab index="0" heading="Home" ng-click="vm.state = 'data-entry'"></uib-tab>
-                <uib-tab index="1" heading="Charts" ng-click="vm.state = 'charts'"></uib-tab>
+                <uib-tab heading="Home" ng-click="vm.state = 'home'"></uib-tab>
+                <uib-tab heading="Trends" ng-click="vm.state = 'trends'"></uib-tab>
             </uib-tabset>
         </div>
 
         <div class="content container">
 
-            <student-data-entry ng-if="vm.state == 'data-entry'"></student-data-entry>
-            <student-charts ng-if="vm.state == 'charts'"></student-charts>
+            <student-home ng-if="vm.state == 'home'"></student-home>
+            <student-trends ng-if="vm.state == 'trends'"></student-trends>
 
         </div>
 

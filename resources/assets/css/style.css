@@ -106,7 +106,7 @@ chart .highcharts-container {
     margin: auto;
 }
 
-student-charts .chart-selection {
+.chart-selection {
     text-align: center;
     padding: 10px;
 }
