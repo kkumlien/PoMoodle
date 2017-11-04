@@ -17,7 +17,7 @@ angular.module('poMoodleApp').directive('chart', ['timeUtil', function (timeUtil
                     chart: {
                         type: scope.type,
                         height: 500,
-                        width: 970,
+                        width: 950,
                         events: {
                             drilldown: function (e) {
                                 this.setTitle({text: e.point.name});

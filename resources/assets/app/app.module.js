@@ -1,1 +1,4 @@
-angular.module('poMoodleApp', ['ui.bootstrap']);
+angular.module('poMoodleApp', [
+    'ui.bootstrap',
+    'rzModule'
+]);

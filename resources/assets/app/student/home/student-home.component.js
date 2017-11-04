@@ -6,7 +6,15 @@ angular.module('poMoodleApp').component('studentHome', {
 
 angular.module('poMoodleApp').controller('studentHomeController', ['$uibModal', function ($uibModal) {
     var vm = this;
+
     vm.$onInit = function () {
         console.log("studentHome");
-    }
+    };
+
+    vm.openModal = function () {
+        $uibModal.open({
+            component: 'studentDataEntryModal'
+        });
+    };
+
 }]);

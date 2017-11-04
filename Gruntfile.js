@@ -52,6 +52,23 @@ module.exports = function (grunt) {
                         dest: 'public/view/'
                     }
                 ]
+            },
+            fonts: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'resources/assets/vendor/',
+                        flatten: true,
+                        src: [
+                            '**/*.eot',
+                            '**/*.svg',
+                            '**/*.ttf',
+                            '**/*.woff',
+                            '**/*.woff2'
+                        ],
+                        dest: 'public/fonts/'
+                    }
+                ]
             }
         },
         watch: {
@@ -79,7 +96,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
 
-    grunt.registerTask('default', ['clean', 'concat', 'concat_css', 'copy', 'watch']);
-    grunt.registerTask('prod', ['clean', 'concat', 'uglify', 'concat_css', 'cssmin', 'copy']);
+    grunt.registerTask('default', ['clean', 'concat', 'concat_css', 'copy', 'copy:fonts', 'watch']);
+    grunt.registerTask('prod', ['clean', 'concat', 'uglify', 'concat_css', 'cssmin', 'copy', 'copy:fonts']);
 
 };
