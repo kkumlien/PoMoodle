@@ -108,7 +108,7 @@ header {
 .data-entry .btn {
     height: 75px;
     width: 80px;
-    margin: 20px 15px 20px 15px;
+    margin: 25px 15px 25px 15px;
 }
 
 .data-entry .btn span.btn-header {
@@ -167,20 +167,3 @@ chart .highcharts-container {
     padding: 10px;
 }
 
-
-.ng-enter {
-    transition:0.5s;
-    opacity:0;
-}
-
-.ng-enter-active {
-    opacity:1;
-}
-
-.ng-leave {
-    transition:0.5s;
-    opacity:1;
-}
-.ng-leave.ng-leave-active {
-    opacity:0;
-}

@@ -9,7 +9,7 @@ angular.module('poMoodleApp').component('studentDataEntryModal', {
     }
 });
 
-angular.module('poMoodleApp').controller('studentDataEntryModalController', ['timeUtil', function (timeUtil) {
+angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$scope', '$timeout', 'timeUtil', function ($scope, $timeout, timeUtil) {
     var vm = this;
 
     vm.$onInit = function () {
@@ -26,6 +26,23 @@ angular.module('poMoodleApp').controller('studentDataEntryModalController', ['ti
                 }
             }
         };
+        calculateSliderViewDimensions();
+    };
+
+    function calculateSliderViewDimensions() {
+        $timeout(function () {
+            $scope.$broadcast('reCalcViewDimensions');
+        }, 1);
+    }
+
+
+    /**
+     * Closes the dialog after a delay of a half second
+     */
+    vm.closeWithDelay = function () {
+        $timeout(function () {
+            vm.close();
+        }, 500);
     };
 
     vm.ok = function () {
