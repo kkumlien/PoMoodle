@@ -12,6 +12,10 @@
 </head>
 <body>
 
+
+
+
+
 <div ng-app="poMoodleApp" ng-strict-di>
 
     @yield('content')
