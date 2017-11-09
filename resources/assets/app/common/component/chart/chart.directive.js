@@ -39,7 +39,7 @@ angular.module('poMoodleApp').directive('chart', ['timeUtil', function (timeUtil
                         headerFormat: '',
                         pointFormatter: function () {
                             var formattedValue = timeUtil.formatMinutes(this.y);
-                            return '<span style="color:' + this.color + '">' + this.name + '</span>: <b>' + formattedValue + '</b><br/>'
+                            return '<span style="color:' + this.color + '">' + this.name + '</span>: <b>' + formattedValue + '</b><br/>';
                         }
                     },
                     xAxis: {

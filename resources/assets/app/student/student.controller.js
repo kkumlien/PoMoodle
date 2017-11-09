@@ -1,7 +1,10 @@
-angular.module('poMoodleApp').controller('StudentController', [function () {
+angular.module('poMoodleApp').controller('StudentController', ['chartFactory', function (chartFactory) {
     var vm = this;
     vm.$onInit = function () {
         vm.state = 'home';
-        console.log("studentView");
+        vm.chart = {
+            type: 'column',
+            data: chartFactory.getMockSeriesAndDrilldownData()
+        };
     }
 }]);
