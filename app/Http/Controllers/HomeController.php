@@ -5,6 +5,14 @@ namespace App\Http\Controllers;
 class HomeController extends Controller
 {
     public function init() {
-        return view('pages.login');
+
+        if (session('auth')) {
+
+            return view('pages.student');
+
+        } else {
+
+            return view('pages.login');
+        }
     }
 }

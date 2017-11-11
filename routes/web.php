@@ -2,8 +2,18 @@
 
 Route::get('/', 'HomeController@init');
 
-Route::post('/', 'LoginController@login')->name('login');
+Route::post('/login', 'LoginController@login')->name('login');
 
-Route::get('/trends', 'TrendsController@init');
+Route::get('/trends', function () {
 
-Route::get('/logout', 'LoginController@login');
+    if (session('auth')) return view('pages.student-trends');
+    else return view('pages.login', ['dangerMessage' => 'Not authenticated.']);
+
+});
+
+Route::get('/logout', function () {
+
+    session(['auth' => false]);
+    return view('pages.login', ['successMessage' => 'Logged out successfully.']);
+
+});

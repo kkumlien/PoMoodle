@@ -5,10 +5,29 @@
     <div class="container">
         <div class="login-panel card-container">
 
-            <h1>{{config('app.name')}}</h1>
             <img class="login-img-card" src="{{asset('img/tomato-timer.png')}}"/>
 
-            <form action="{{ route('login') }}" method="POST" class="signin-form">
+            @if ($errors->any())
+                <div class="alert alert-warning">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                </div>
+            @endif
+
+            @if (!empty($dangerMessage))
+                <div class="alert alert-danger">
+                    <p>{{ $dangerMessage }}</p>
+                </div>
+            @endif
+
+            @if (!empty($successMessage))
+                <div class="alert alert-success">
+                        <p>{{ $successMessage }}</p>
+                </div>
+            @endif
+
+            <form action="{{ route('login') }}" method="post" class="signin-form">
                 {{ csrf_field() }}
                 <input type="text"
                        name="username"
@@ -27,7 +46,7 @@
                        placeholder="moodle site"
                        required>
                 <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin">
-                    Sign in
+                    Log in
                 </button>
             </form>
 

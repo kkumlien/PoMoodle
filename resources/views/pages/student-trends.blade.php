@@ -4,16 +4,8 @@
 
     <div ng-controller="StudentController as vm" class="container">
 
-        <header>
-            <h1>{{config('app.name')}}</h1>
-        </header>
-
-        <nav>
-            <uib-tabset active="activeForm">
-                <uib-tab heading="Home" ng-click="vm.state = 'home'"></uib-tab>
-                <uib-tab heading="Trends" ng-click="vm.state = 'trends'"></uib-tab>
-            </uib-tabset>
-        </nav>
+        @include('layouts.header')
+        @include('layouts.menu')
 
         <div class="content">
 
