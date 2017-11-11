@@ -180,26 +180,43 @@ header {
 
 
 .student-home h3 {
-    color: #0db9f0;
+    color: darkblue;
     text-align: center;
 }
 
 table {
 
-    line-height: 60px;
+    line-height: 70px;
     border-collapse: separate;
     border-spacing: 0;
-    border: 3px solid darkblue;
-    width: 800px;
+    border: 4px solid darkblue;
+    width: 100%;
     margin: auto;
     border-radius: 1rem;
-    padding: 15px;
+    padding: 25px;
+    background-color: white;
+    font-size: large;
+
 
 }
 th{
-    color: #0db9f0;
+    color: black;
 }
+
+td, th {
+    padding: 0;
+    padding-left: 15px;
+}
+
+
+
 
 .primary{color: #0db9f0;
     height: 50px;
+}
+
+
+.even{
+    background-color:lightgray;
+
 }
