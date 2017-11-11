@@ -11,11 +11,34 @@ angular.module('poMoodleApp').component('studentDataEntryModal', {
 
 angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$scope', '$timeout', 'timeUtil', function ($scope, $timeout, timeUtil) {
     var vm = this;
+    var index = 0;
+
+    var activities = [
+        {
+            id: 1,
+            name: 'Activity 1',
+            time: 30
+        },
+        {
+            id: 2,
+            name: 'Activity 2',
+            time: 0
+        },
+        {
+            id: 3,
+            name: 'Activity 3',
+            time: 60
+        },
+        {
+            id: 4,
+            name: 'Activity 4',
+            time: 120
+        }
+    ];
+
+    vm.activity = activities[index];
 
     vm.$onInit = function () {
-        vm.activity = {
-            time: 30
-        };
         vm.slider = {
             options: {
                 floor: 0,
@@ -35,18 +58,16 @@ angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$s
         }, 1);
     }
 
-
-    /**
-     * Closes the dialog after a delay of a half second
-     */
-    vm.closeWithDelay = function () {
+    vm.updateTime = function () {
         $timeout(function () {
-            vm.close();
+            if (index === activities.length - 1) {
+                vm.close();
+            } else {
+                index++;
+                vm.activity = activities[index];
+            }
         }, 500);
-    };
 
-    vm.ok = function () {
-        vm.close();
     };
 
 }]);
