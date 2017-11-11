@@ -6,19 +6,15 @@
 
     @include('layouts.header')
 
-<!-- link the file to this file -->
-    @include('layouts.menu')
+    <!-- link the file to this file -->
+        @include('layouts.menu')
 
-        <div id="activities" class="content">
-              <button ng-click="vm.openModal()">Open Modal</button>
-
-        </div>
         <div class="student-home">
 
             <h3> Team Project</h3>
 
             <table id="Team Project">
-                <thead >
+                <thead>
 
                 <tr>
                     <th> Activity name</th>
@@ -36,7 +32,8 @@
 
                 <tr class="even">
                     <td>
-                        Module Description </td>
+                        Module Description
+                    </td>
                     <td>
                         04-11-2017
                     </td>
@@ -44,11 +41,10 @@
                         1 hour
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
 
-                    </td></tr>
-
-
+                    </td>
+                </tr>
 
 
                 <tr>
@@ -62,7 +58,7 @@
                         2 hours
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -77,7 +73,7 @@
                         1 hour
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -92,7 +88,7 @@
                         3 hours
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -132,7 +128,7 @@
                         1 hour
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -147,7 +143,7 @@
                         3 hours
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -162,7 +158,7 @@
                         1 hour
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -177,7 +173,7 @@
                         3 hours
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -206,7 +202,7 @@
                 </thead>
 
                 <tbody>
-                <tr class="even">>
+                <tr class="even">
                     <td>
                         Module Overview
                     </td>
@@ -217,7 +213,7 @@
                         1 hour
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -232,7 +228,7 @@
                         2 hours
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -247,7 +243,7 @@
                         1 hour
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -262,7 +258,7 @@
                         2 hours
                     </td>
                     <td>
-                        <button class="btn btn-primary">Edit</button>
+                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
 
@@ -273,9 +269,11 @@
 
         </div>
 
-    <br>
-    </br>
         <br>
         </br>
+        <br>
+        </br>
+
+    </div>
 
 @endsection
