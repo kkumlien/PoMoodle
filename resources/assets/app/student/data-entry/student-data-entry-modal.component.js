@@ -13,6 +13,12 @@ angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$s
     var vm = this;
     var index = 0;
 
+    vm.previousActivity = previousActivity;
+    vm.nextActivity = nextActivity;
+    vm.previousDisabled = previousDisabled;
+    vm.nextDisabled = nextDisabled;
+    vm.updateTime = updateTime;
+
     var activities = [
         {
             id: 1,
@@ -52,22 +58,42 @@ angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$s
         calculateSliderViewDimensions();
     };
 
+
     function calculateSliderViewDimensions() {
         $timeout(function () {
             $scope.$broadcast('reCalcViewDimensions');
         }, 1);
     }
 
-    vm.updateTime = function () {
+
+    function updateTime() {
         $timeout(function () {
             if (index === activities.length - 1) {
                 vm.close();
             } else {
-                index++;
-                vm.activity = activities[index];
+                vm.activity = activities[++index];
             }
         }, 500);
+    }
 
-    };
+
+    function nextActivity() {
+        vm.activity = activities[++index];
+    }
+
+
+    function previousActivity() {
+        vm.activity = activities[--index];
+    }
+
+
+    function previousDisabled() {
+        return index === 0;
+    }
+
+
+    function nextDisabled() {
+        return index === activities.length - 1;
+    }
 
 }]);
