@@ -1,7 +1,11 @@
+
 CREATE TABLE `users` (
-	`user_id` varchar(30) NOT NULL UNIQUE,
-	`site_id` INT NOT NULL UNIQUE,
-	`role_code` varchar(1) NOT NULL
+	`user_id` INT NOT NULL UNIQUE,
+	`user_name` varchar(30) NOT NULL,
+	`site_id` INT NOT NULL,
+	`role_code` varchar(1) NOT NULL,
+	PRIMARY KEY (user_id),
+	UNIQUE (user_name, site_id)
 );
 
 CREATE TABLE `sites` (
@@ -47,4 +51,3 @@ ALTER TABLE `activities` ADD CONSTRAINT `activities_fk1` FOREIGN KEY (`module_id
 ALTER TABLE `courses` ADD CONSTRAINT `courses_fk0` FOREIGN KEY (`site_id`) REFERENCES `sites`(`site_id`);
 
 ALTER TABLE `courses` ADD CONSTRAINT `courses_fk1` FOREIGN KEY (`teacher_user_id`) REFERENCES `users`(`user_id`);
-
