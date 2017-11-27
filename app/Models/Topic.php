@@ -28,5 +28,10 @@ class Topic
      * @var int
      */
     public $section;
+    /**
+     * @var array Module
+     */
+    public $modules;
+
 
 }
