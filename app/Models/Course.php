@@ -41,5 +41,12 @@ class Course
      */
     public $enddate;
 
+    /**
+     * @var array Topic
+     */
+    public $topics;
+
+
+
 }
 
