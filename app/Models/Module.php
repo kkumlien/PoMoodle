@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class Modules
+class Module
 {
     /**
      * @var string
