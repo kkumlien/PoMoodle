@@ -46,5 +46,10 @@ class Module
      */
     public $modplural;
 
+    /**
+     * @var CompletionStatus
+     */
+    public $completionStatus;
+
 
 }

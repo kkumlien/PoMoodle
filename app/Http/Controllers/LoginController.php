@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MoodleRestService;
+use App\Services\MoodleDataRetrievalService;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -17,9 +17,9 @@ class LoginController extends Controller
 {
 
     /**
-     * @var MoodleRestService
+     * @var MoodleDataRetrievalService
      */
-    private $moodleRestService;
+    private $moodleDataRetrievalService;
 
 
     /**
@@ -27,7 +27,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->moodleRestService = new MoodleRestService(new UrlBuilder(), new Client(), new JsonMapper());
+        $this->moodleDataRetrievalService = new MoodleDataRetrievalService(new UrlBuilder(), new Client(), new JsonMapper());
     }
 
 
@@ -87,7 +87,7 @@ class LoginController extends Controller
         $moodleUrl = "https://pomodoro-moodle.c9users.io/moodle";
         $wsToken = "3a8164713cd1a379bbade400c1a2ad7c";
 
-        $user = $this->moodleRestService->getUserData($moodleUrl, $wsToken);
+        $user = $this->moodleDataRetrievalService->getUserData($moodleUrl, $wsToken);
 
         session(['user' => $user]);
 

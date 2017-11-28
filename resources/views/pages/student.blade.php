@@ -44,7 +44,9 @@
                                         {{$module->name}}
                                     </td>
                                     <td>
-                                        N/A
+                                        @if($module->completionStatus->timecompleted > 0)
+                                            {{gmdate("Y-m-d", $module->completionStatus->timecompleted)}}
+                                        @endif
                                     </td>
                                     <td>
                                         N/A

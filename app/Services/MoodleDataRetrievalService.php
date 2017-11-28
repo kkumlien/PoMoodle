@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\ActivitiesCompletionStatus;
 use App\Models\User;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Client;
@@ -11,10 +12,10 @@ use JsonMapper;
 /**
  * Retrieves data from Moodle using it's REST API
  *
- * Class MoodleRestService
+ * Class MoodleDataRetrievalService
  * @package App\Services
  */
-class MoodleRestService
+class MoodleDataRetrievalService
 {
 
     /**
@@ -34,7 +35,7 @@ class MoodleRestService
 
 
     /**
-     * MoodleRestService constructor.
+     * MoodleDataRetrievalService constructor.
      *
      * @param UrlBuilder $urlBuilder
      * @param Client $httpClient
@@ -67,9 +68,7 @@ class MoodleRestService
 
         $user->courses = $this->getUserCourses($user->userid);
 
-        foreach ($user->courses as $course) {
-            $course->topics = $this->getCourseContent($course->id);
-        }
+        $user = $this->getCourseData($user);
 
         return $user;
     }
@@ -100,6 +99,22 @@ class MoodleRestService
     }
 
 
+    private function getCourseData($user)
+    {
+        foreach ($user->courses as $course) {
+            $topics = $this->getCourseContent($course->id);
+
+            $activitiesCompletionStatus = $this->getActivitiesCompletionStatus($user->userid, $course->id);
+
+            $topics = $this->mergeActivitiesCompletionStatusToTopics($activitiesCompletionStatus, $topics);
+
+            $course->topics = $topics;
+        }
+
+        return $user;
+    }
+
+
     private function getCourseContent(int $courseId)
     {
         $url = $this->urlBuilder
@@ -110,6 +125,40 @@ class MoodleRestService
         $topics = $this->getResponseAsObjectArray($url, 'App\Models\Topic');
 
         return $topics;
+    }
+
+
+    private function getActivitiesCompletionStatus(int $userId, int $courseId)
+    {
+        $url = $this->urlBuilder
+            ->withTemp("wsfunction", "core_completion_get_activities_completion_status")
+            ->withTemp("userid", $userId)
+            ->withTemp("courseid", $courseId)
+            ->build();
+
+        $activitiesCompletionStatus = $this->getResponseAsObject($url, new ActivitiesCompletionStatus());
+
+        return $activitiesCompletionStatus;
+    }
+
+
+    public function mergeActivitiesCompletionStatusToTopics($activitiesCompletionStatus, array $topics)
+    {
+
+        $completionStatuses = $activitiesCompletionStatus->statuses;
+
+        $moduleIndex = 0;
+
+        for ($i = 1; $i < count($topics); $i++) {
+            $modules = $topics[$i]->modules;
+
+            foreach ($modules as $module) {
+                $module->completionStatus = $completionStatuses[$moduleIndex++];
+            }
+        }
+
+        return $topics;
+
     }
 
 
@@ -131,5 +180,6 @@ class MoodleRestService
 
         return $objectArray;
     }
+
 
 }
