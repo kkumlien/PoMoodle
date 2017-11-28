@@ -2,14 +2,13 @@
 
 Route::get('/', 'HomeController@init');
 
+Route::get('/login', 'LoginController@loginPage');
+
 Route::post('/login', 'LoginController@login')->name('login');
 
-Route::get('/trends', function () {
+Route::get('/student', 'StudentController@homePage');
 
-    if (session('auth')) return view('pages.student-trends');
-    else return view('pages.login', ['dangerMessage' => 'Not authenticated.']);
-
-});
+Route::get('/trends', 'StudentController@trendsPage');
 
 Route::get('/logout', function () {
 

@@ -5,8 +5,6 @@ namespace App\Models;
 
 class User
 {
-
-
     /**
      * @var int
      */

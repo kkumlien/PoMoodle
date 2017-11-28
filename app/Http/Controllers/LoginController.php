@@ -2,27 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
-// use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Services\MoodleRestService;
+use App\Utils\UrlBuilder;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
+use JsonMapper;
+use Validator;
+
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
+// use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen.
-    |
-    */
 
-    // use AuthenticatesUsers;
+    /**
+     * @var MoodleRestService
+     */
+    private $moodleRestService;
 
+
+    /**
+     * LoginController constructor.
+     */
+    public function __construct()
+    {
+        $this->moodleRestService = new MoodleRestService(new UrlBuilder(), new Client(), new JsonMapper());
+    }
+
+
+    /**
+     * Handles requests for displaying the login page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function loginPage()
+    {
+        return view('pages.login');
+    }
+
+
+    /**
+     * Handles authenticating users for the application and redirecting them to your home screen
+     *
+     * @param Request $request
+     * @return $this
+     */
     public function login(Request $request)
     {
 
@@ -42,10 +67,10 @@ class LoginController extends Controller
 
         $validator = Validator::make($request->all(), [
             'username' => [Rule::in(['finn'])]
-        ,   'password' => [Rule::in(['finn'])]
+            , 'password' => [Rule::in(['finn'])]
         ], [
             'username.in' => 'Invalid user name.'
-        ,   'password.in' => 'Invalid password.'
+            , 'password.in' => 'Invalid password.'
         ]);
 
         if ($validator->fails()) {
@@ -57,7 +82,16 @@ class LoginController extends Controller
         }
 
         session(['auth' => true]);
-        return view('pages.student');
+
+
+        $moodleUrl = "https://pomodoro-moodle.c9users.io/moodle";
+        $wsToken = "3a8164713cd1a379bbade400c1a2ad7c";
+
+        $user = $this->moodleRestService->getUserData($moodleUrl, $wsToken);
+
+        session(['user' => $user]);
+
+        return redirect('student');
 
     }
 }

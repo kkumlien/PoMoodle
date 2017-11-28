@@ -8,6 +8,7 @@ angular.module('poMoodleApp').factory('timeUtil', [function () {
      * Converts minutes into a time string in the format of 'x hours x minutes'
      * If hours or minutes is 0 they wont be included in the time string
      * If hours and minutes is 0 the time string will be '0 minutes'
+     *
      * @param minutes
      * @returns {string} formatted time string
      */

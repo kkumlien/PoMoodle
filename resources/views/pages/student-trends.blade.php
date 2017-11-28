@@ -22,6 +22,12 @@
 
             <chart chart-title="Courses" data="vm.chart.data" type="vm.chart.type"></chart>
 
+            <script>
+//                console.log('$course');
+                {{--var course = "{{$course}}".replace(/&quot;/g,'"');--}}
+//                console.log(JSON.parse(course));
+            </script>
+
             <line-chart></line-chart>
 
         </div>

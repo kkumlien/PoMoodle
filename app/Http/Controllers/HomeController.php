@@ -8,11 +8,11 @@ class HomeController extends Controller
 
         if (session('auth')) {
 
-            return view('pages.student');
+            return redirect('student');
 
         } else {
 
-            return view('pages.login');
+            return redirect('login');
         }
     }
 }

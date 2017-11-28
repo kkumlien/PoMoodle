@@ -185,13 +185,16 @@ header {
     padding: 10px;
 }
 
+.container .student-home {
+    margin-bottom: 75px;
+}
+
 .student-home h3 {
     color: darkblue;
     text-align: center;
 }
 
-table {
-
+.student-home .activities-table {
     line-height: 70px;
     border-collapse: separate;
     border-spacing: 0;
@@ -205,21 +208,17 @@ table {
 
 }
 
-th {
+.student-home .activities-table th {
     color: black;
 }
 
-td, th {
+.student-home .activities-table th,
+.student-home .activities-table td {
     padding: 0;
     padding-left: 15px;
 }
 
-.primary {
-    color: #0db9f0;
-    height: 50px;
-}
-
-.even {
+.student-home .activities-table tbody tr:nth-child(odd) {
     background-color: lightgray;
-
 }
+
