@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div ng-controller="StudentController as vm" class="container">
+    <div ng-controller="StudentTrendsController as vm" class="container">
 
         @include('layouts.header')
         @include('layouts.menu')
@@ -27,11 +27,7 @@
                 console.log(JSON.parse(course));
             </script>
 
-            <line-chart></line-chart>
-
         </div>
-
-
 
     </div>
 

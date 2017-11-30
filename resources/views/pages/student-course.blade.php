@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div ng-controller="StudentController as vm" class="container">
+    <div ng-controller="StudentCoursesController as vm" class="container">
 
         @include('layouts.header')
 
