@@ -8,6 +8,8 @@ Route::post('/login', 'LoginController@login')->name('login');
 
 Route::get('/student', 'StudentController@homePage');
 
+Route::get('/course', 'StudentController@coursePage');
+
 Route::get('/trends', 'StudentController@trendsPage');
 
 Route::get('/logout', function () {

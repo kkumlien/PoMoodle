@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Person;
-use App\Services\RestMapperService;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -26,6 +25,28 @@ class StudentController extends Controller
     }
 
 
+    public function coursePage(Request $request)
+    {
+        if (!session('auth')) {
+            return redirect('login');
+        }
+
+        $courseId = $request->input('id');
+
+        $user = session('user');
+
+        $selectedCourse = null;
+
+        foreach ($user->courses as $course) {
+            if ($course->id == $courseId) {
+                $selectedCourse = $course;
+            }
+        }
+
+        return view('pages.student-course')->with('course', $selectedCourse);
+    }
+
+
     /**
      * Handles requests for the student trends page
      *
@@ -37,6 +58,8 @@ class StudentController extends Controller
             return redirect('login');
         }
 
-        return view('pages.student-trends');
+        $user = session('user');
+
+        return view('pages.student-trends') - with('user', json_encode($user));
     }
 }

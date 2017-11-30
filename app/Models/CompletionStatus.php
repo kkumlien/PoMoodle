@@ -24,4 +24,10 @@ class CompletionStatus
      * @var int
      */
     public $timecompleted;
+
+
+    /**
+     * @var int
+     */
+    public $timeSpent;
 }
