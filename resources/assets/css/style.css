@@ -208,17 +208,27 @@ header {
 
 }
 
-.student-home .activities-table th {
+.student-courses .activities-table th {
     color: black;
 }
 
-.student-home .activities-table th,
-.student-home .activities-table td {
+.student-courses .activities-table th,
+.student-courses .activities-table td {
     padding: 0;
     padding-left: 15px;
 }
 
-.student-home .activities-table tbody tr:nth-child(odd) {
+.student-courses .activities-table tbody tr:nth-child(odd) {
     background-color: lightgray;
 }
 
+
+.course-container {
+    padding: 5px 0   10px 20px;
+
+}
+
+.course-container h3 {
+    text-align: left;
+
+}

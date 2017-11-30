@@ -10,64 +10,24 @@
 
         <div class="student-home">
 
-            @foreach($user->courses as $course)
+                @foreach($user->courses as $course)
 
-                <h3>{{$course->fullname}}</h3>
+            <div class="course-container well">
+                <h3> <a href="/course?id={{$course->id}}">{{$course->fullname}}</a></h3>
+            </div>
 
-                <table class="activities-table">
+                 @endforeach
 
-                    <thead>
-                    <tr>
-                        <th>
-                            Activity Name
-                        </th>
-                        <th>
-                            Completed Date
-                        </th>
-                        <th>
-                            Time
-                        </th>
-                        <th>
-                            Edit Time
-                        </th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    @foreach($course->topics as $topic)
-
-                        @if($topic->name != "General")
-                            @foreach($topic->modules as $module)
-
-                                <tr>
-                                    <td>
-                                        {{$module->name}}
-                                    </td>
-                                    <td>
-                                        @if($module->completionStatus->timecompleted > 0)
-                                            {{gmdate("Y-m-d", $module->completionStatus->timecompleted)}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        N/A
-                                    </td>
-                                    <td>
-                                        <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
-                                    </td>
-                                </tr>
-
-                            @endforeach
-                        @endif
-
-                    @endforeach
-                    </tbody>
-
-                </table>
-
-            @endforeach
 
         </div>
 
+
+
+
+
+
     </div>
+
+
 
 @endsection

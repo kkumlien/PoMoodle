@@ -8,8 +8,8 @@
 
         @include('layouts.menu')
 
-        <div class="student-home">
-
+        <div class="student-courses">
+            <h2>{{$course->fullname}}</h2>
             @foreach($course->topics as $topic)
                 @if($topic->name != "General")
 
