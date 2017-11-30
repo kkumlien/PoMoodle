@@ -21,7 +21,7 @@ class StudentController extends Controller
 
         $user = session('user');
 
-        return view('pages.student')->with('user', $user);
+        return view('pages.student-home')->with('user', $user);
     }
 
 
@@ -43,7 +43,7 @@ class StudentController extends Controller
             }
         }
 
-        return view('pages.student-course')->with('course', $selectedCourse);
+        return view('pages.student-courses')->with('course', $selectedCourse);
     }
 
 
