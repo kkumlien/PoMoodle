@@ -60,6 +60,6 @@ class StudentController extends Controller
 
         $user = session('user');
 
-        return view('pages.student-trends') - with('user', json_encode($user));
+        return view('pages.student-trends')->with('user', json_encode($user));
     }
 }

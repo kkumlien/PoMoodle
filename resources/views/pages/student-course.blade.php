@@ -9,7 +9,9 @@
         @include('layouts.menu')
 
         <div class="student-courses">
+
             <h2>{{$course->fullname}}</h2>
+
             @foreach($course->topics as $topic)
                 @if($topic->name != "General")
 
@@ -35,7 +37,6 @@
                         </thead>
 
                         <tbody>
-
 
                         @foreach($topic->modules as $module)
 

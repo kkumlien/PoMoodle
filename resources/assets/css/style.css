@@ -185,16 +185,18 @@ header {
     padding: 10px;
 }
 
-.container .student-home {
+.container .student-home,
+.container .student-courses {
     margin-bottom: 75px;
 }
 
-.student-home h3 {
+.student-home h3,
+.student-courses h3 {
     color: darkblue;
     text-align: center;
 }
 
-.student-home .activities-table {
+.student-courses .activities-table {
     line-height: 70px;
     border-collapse: separate;
     border-spacing: 0;
@@ -222,9 +224,8 @@ header {
     background-color: lightgray;
 }
 
-
 .course-container {
-    padding: 5px 0   10px 20px;
+    padding: 5px 0 10px 20px;
 
 }
 

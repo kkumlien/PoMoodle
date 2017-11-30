@@ -52,31 +52,5 @@
 
         </div>
     </div>
-    <!-- leo's code goes here-->
-    @php
-    function login($username, $password, $moodle_site){
-
-        if ($moodle_site == "moodle.ie"){
-
-            if ($username == 'finn' && $password == 'finn'){
-
-                return "moodle and authentication are correct" ;
-            }else{
-                return "name and password arent correct";
-            }
-        }
-        else{
-            return "moodle site is not registered";
-        }
-    }//function brackets
-
-    @endphp
-
-    {{login("finn", "finn", "moodle.ie")}}
-
-    <!--ends here -->
-
-
-
 
 @endsection

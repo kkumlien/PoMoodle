@@ -10,24 +10,19 @@
 
         <div class="student-home">
 
-                @foreach($user->courses as $course)
+            @foreach($user->courses as $course)
 
-            <div class="course-container well">
-                <h3> <a href="/course?id={{$course->id}}">{{$course->fullname}}</a></h3>
-            </div>
+                <div class="course-container well">
+                    <h3><a href="/course?id={{$course->id}}">{{$course->fullname}}</a></h3>
+                    <div>
+                        {!! $course->summary !!}
+                    </div>
+                </div>
 
-                 @endforeach
-
+            @endforeach
 
         </div>
 
-
-
-
-
-
     </div>
-
-
 
 @endsection
