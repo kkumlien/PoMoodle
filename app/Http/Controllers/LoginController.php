@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MoodleAuthenticationService;
 use App\Services\MoodleDataRetrievalService;
+use App\Services\MoodleSiteService;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use JsonMapper;
 use Validator;
 
@@ -23,11 +24,23 @@ class LoginController extends Controller
 
 
     /**
+     * @var MoodleSiteService
+     */
+    private $moodleSiteService;
+
+    /**
+     * @var MoodleAuthenticationService
+     */
+    private $authenticationService;
+
+
+    /**
      * LoginController constructor.
      */
     public function __construct()
     {
         $this->moodleDataRetrievalService = new MoodleDataRetrievalService(new UrlBuilder(), new Client(), new JsonMapper());
+        $this->moodleSiteService = new MoodleSiteService();
     }
 
 
@@ -50,42 +63,23 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+        $moodleSite = $request->input('moodleSite');
+        $username = $request->input('username');
+        $password = $request->input('password');
 
-        $validator = Validator::make($request->all(), [
-            'moodleSite' => [Rule::in(['https://pomodoro-moodle.c9users.io/moodle'])]
-        ], [
-            'moodleSite.in' => 'Moodle site not registered.'
-        ]);
+        $moodleUrl = $this->moodleSiteService->validateMoodleSite($moodleSite);
 
-        if ($validator->fails()) {
-
-            return redirect('/')
-                ->withErrors($validator)
-                ->withInput();
-
+        if ($moodleUrl == null) {
+            return view('pages.login')->with('errorMessage', 'Moodle site not registered.');
         }
 
-        $validator = Validator::make($request->all(), [
-            'username' => [Rule::in(['finn'])]
-            , 'password' => [Rule::in(['finn'])]
-        ], [
-            'username.in' => 'Invalid user name.'
-            , 'password.in' => 'Invalid password.'
-        ]);
+        $wsToken = $this->authenticationService->authenticateUser($username, $password);
 
-        if ($validator->fails()) {
-
-            return redirect('/')
-                ->withErrors($validator)
-                ->withInput();
-
+        if ($wsToken == null) {
+            return view('pages.login')->with('errorMessage', 'User credentials are invalid');
         }
 
         session(['auth' => true]);
-
-
-        $moodleUrl = "https://pomodoro-moodle.c9users.io/moodle";
-        $wsToken = "3a8164713cd1a379bbade400c1a2ad7c";
 
         $user = $this->moodleDataRetrievalService->getUserData($moodleUrl, $wsToken);
 

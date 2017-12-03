@@ -7,23 +7,15 @@
 
             <img class="login-img-card" src="{{asset('img/tomato-timer.png')}}"/>
 
-            @if ($errors->any())
-                <div class="alert alert-warning">
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                </div>
-            @endif
-
-            @if (!empty($dangerMessage))
-                <div class="alert alert-danger">
-                    <p>{{ $dangerMessage }}</p>
-                </div>
-            @endif
-
             @if (!empty($successMessage))
                 <div class="alert alert-success">
                         <p>{{ $successMessage }}</p>
+                </div>
+            @endif
+
+            @if (!empty($errorMessage))
+                <div class="alert alert-danger">
+                    <p>{{ $errorMessage }}</p>
                 </div>
             @endif
 
