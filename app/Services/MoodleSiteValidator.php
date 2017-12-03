@@ -3,7 +3,7 @@
 namespace App\Services;
 
 
-class MoodleSiteService
+class MoodleSiteValidator
 {
     public function validateMoodleSite(string $moodleSite)
     {

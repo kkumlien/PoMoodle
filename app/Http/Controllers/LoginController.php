@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\MoodleAuthenticationService;
 use App\Services\MoodleDataRetrievalService;
-use App\Services\MoodleSiteService;
+use App\Services\MoodleSiteValidator;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -24,9 +24,9 @@ class LoginController extends Controller
 
 
     /**
-     * @var MoodleSiteService
+     * @var MoodleSiteValidator
      */
-    private $moodleSiteService;
+    private $moodleSiteValidator;
 
     /**
      * @var MoodleAuthenticationService
@@ -40,7 +40,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->moodleDataRetrievalService = new MoodleDataRetrievalService(new UrlBuilder(), new Client(), new JsonMapper());
-        $this->moodleSiteService = new MoodleSiteService();
+        $this->moodleSiteValidator = new MoodleSiteValidator();
+        $this->authenticationService = new MoodleAuthenticationService();
     }
 
 
@@ -67,7 +68,7 @@ class LoginController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $moodleUrl = $this->moodleSiteService->validateMoodleSite($moodleSite);
+        $moodleUrl = $this->moodleSiteValidator->validateMoodleSite($moodleSite);
 
         if ($moodleUrl == null) {
             return view('pages.login')->with('errorMessage', 'Moodle site not registered.');
