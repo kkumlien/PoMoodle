@@ -55,7 +55,7 @@
                                 <script>
                                 </script>
                                 <td>
-                                    <button ng-click="vm.openModal('{{$module->id}}', '{{$module->name}}', '{{$module->completionStatus->timeSpent}}')"
+                                    <button ng-click="vm.openModal('{{$module->id}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"
                                             class="btn btn-primary">
                                         Edit
                                     </button>

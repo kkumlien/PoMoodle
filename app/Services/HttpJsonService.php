@@ -27,6 +27,7 @@ class HttpJsonService
     {
         $this->httpClient = $httpClient;
         $this->jsonMapper = $jsonMapper;
+        $this->jsonMapper->bStrictNullTypes = false;
     }
 
 

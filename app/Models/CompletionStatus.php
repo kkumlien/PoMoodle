@@ -8,13 +8,11 @@ class CompletionStatus
     /**
      * @var int
      */
-    public $cmid;
-
+    public $activity_id;
     /**
-     * @var string
+     * @var int
      */
-    public $modname;
-
+    public $cmid;
     /**
      * @var int
      */
@@ -25,9 +23,8 @@ class CompletionStatus
      */
     public $timecompleted;
 
-
     /**
      * @var int
      */
-    public $timeSpent;
+    public $duration_in_minutes;
 }

@@ -3,7 +3,7 @@
 </div>
 <div class="modal-body">
 
-    <h4>Time: {{vm.module.timeSpent | formatMinutes}}</h4>
+    <h4>Time: {{vm.module.duration | formatMinutes}}</h4>
 
     <div class="data-entry">
 
@@ -14,7 +14,7 @@
                 <div class="row">
 
                     <div class="col-xs-offset-3 col-xs-3">
-                        <label uib-btn-radio="30" class="btn btn-primary btn-time" ng-model="vm.module.timeSpent"
+                        <label uib-btn-radio="30" class="btn btn-primary btn-time" ng-model="vm.module.duration"
                                ng-click="vm.updateTime()">
                         <span class="btn-header">
                             30
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="col-xs-4">
-                        <label uib-btn-radio="60" class="btn btn-primary btn-time" ng-model="vm.module.timeSpent"
+                        <label uib-btn-radio="60" class="btn btn-primary btn-time" ng-model="vm.module.duration"
                                ng-click="vm.updateTime()">
                         <span class="btn-header">
                             1
@@ -42,7 +42,7 @@
                 <div class="row">
 
                     <div class="col-xs-offset-3 col-xs-3">
-                        <label uib-btn-radio="180" class="btn btn-primary btn-time" ng-model="vm.module.timeSpent"
+                        <label uib-btn-radio="180" class="btn btn-primary btn-time" ng-model="vm.module.duration"
                                ng-click="vm.updateTime()">
                         <span class="btn-header">
                             3
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="col-xs-4">
-                        <label uib-btn-radio="360" class="btn btn-primary btn-time" ng-model="vm.module.timeSpent"
+                        <label uib-btn-radio="360" class="btn btn-primary btn-time" ng-model="vm.module.duration"
                                ng-click="vm.updateTime()">
                         <span class="btn-header">
                             6
@@ -72,7 +72,7 @@
 
         <div class="row">
             <div class="col-xs-offset-1 col-xs-10">
-                <rzslider rz-slider-model="vm.module.timeSpent" rz-slider-options="vm.slider.options"></rzslider>
+                <rzslider rz-slider-model="vm.module.duration" rz-slider-options="vm.slider.options"></rzslider>
             </div>
         </div>
 

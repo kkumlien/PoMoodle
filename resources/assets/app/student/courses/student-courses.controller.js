@@ -3,11 +3,11 @@ angular.module('poMoodleApp').controller('StudentCoursesController', ['$uibModal
 
     vm.openModal = openModal;
 
-    function openModal(id, name, timeSpent) {
+    function openModal(id, name, duration_in_minutes) {
         var module = {
             id: id,
             name: name,
-            timeSpent: timeSpent
+            duration: duration_in_minutes
         };
 
         var modalInstance = $uibModal.open({
