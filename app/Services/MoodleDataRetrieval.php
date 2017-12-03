@@ -10,7 +10,7 @@ use App\Utils\UrlBuilder;
 use GuzzleHttp\Exception\ServerException;
 
 /**
- * Retrieves data from Moodle using it's REST API
+ * Retrieves data from Moodle using its REST API
  *
  * Class MoodleDataRetrieval
  * @package App\Services

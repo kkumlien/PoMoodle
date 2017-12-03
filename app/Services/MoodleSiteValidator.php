@@ -16,20 +16,14 @@ class MoodleSiteValidator
      */
     public function validateMoodleSite(string $moodleSite)
     {
-        $results = DB::select("select * from pm_sites where site_url = '$moodleSite' or site_alias = '$moodleSite'");
+        $results = DB::select('SELECT site_url FROM pm_sites WHERE site_url = ?'
+            . ' OR site_alias = ?', [$moodleSite, $moodleSite]);
 
         if (!empty($results)) {
-            $moodleUrl = $this->getPropertyFromStdClass('site_url', $results[0]);
-            return $moodleUrl;
+            return $results[0]->site_url;
         }
 
         return null;
-    }
-
-
-    private function getPropertyFromStdClass(string $property, stdClass $stdClass)
-    {
-        return get_object_vars($stdClass)[$property];
     }
 
 }
