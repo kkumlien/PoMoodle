@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MoodleAuthenticationService;
-use App\Services\MoodleDataRetrievalService;
+use App\Services\MoodleAuthentication;
+use App\Services\MoodleDataRetrieval;
 use App\Services\MoodleSiteValidator;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Client;
@@ -18,9 +18,9 @@ class LoginController extends Controller
 {
 
     /**
-     * @var MoodleDataRetrievalService
+     * @var MoodleDataRetrieval
      */
-    private $moodleDataRetrievalService;
+    private $moodleDataRetrieval;
 
 
     /**
@@ -29,7 +29,7 @@ class LoginController extends Controller
     private $moodleSiteValidator;
 
     /**
-     * @var MoodleAuthenticationService
+     * @var MoodleAuthentication
      */
     private $authenticationService;
 
@@ -39,9 +39,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->moodleDataRetrievalService = new MoodleDataRetrievalService(new UrlBuilder(), new Client(), new JsonMapper());
+        $this->moodleDataRetrieval = new MoodleDataRetrieval(new UrlBuilder(), new Client(), new JsonMapper());
         $this->moodleSiteValidator = new MoodleSiteValidator();
-        $this->authenticationService = new MoodleAuthenticationService();
+        $this->authenticationService = new MoodleAuthentication();
     }
 
 
@@ -82,7 +82,7 @@ class LoginController extends Controller
 
         session(['auth' => true]);
 
-        $user = $this->moodleDataRetrievalService->getUserData($moodleUrl, $wsToken);
+        $user = $this->moodleDataRetrieval->getUserData($moodleUrl, $wsToken);
 
         session(['user' => $user]);
 

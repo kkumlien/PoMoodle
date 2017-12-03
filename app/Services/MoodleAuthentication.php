@@ -3,7 +3,7 @@
 namespace App\Services;
 
 
-class MoodleAuthenticationService
+class MoodleAuthentication
 {
     public function authenticateUser(string $username, string $password)
     {

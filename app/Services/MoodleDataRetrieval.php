@@ -12,10 +12,10 @@ use JsonMapper;
 /**
  * Retrieves data from Moodle using it's REST API
  *
- * Class MoodleDataRetrievalService
+ * Class MoodleDataRetrieval
  * @package App\Services
  */
-class MoodleDataRetrievalService
+class MoodleDataRetrieval
 {
 
     /**
@@ -35,7 +35,7 @@ class MoodleDataRetrievalService
 
 
     /**
-     * MoodleDataRetrievalService constructor.
+     * MoodleDataRetrieval constructor.
      *
      * @param UrlBuilder $urlBuilder
      * @param Client $httpClient
