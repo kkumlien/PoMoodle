@@ -39,8 +39,8 @@ body, html {
 }
 
 .header-img-card {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     margin: 20px auto 15px;
     display: block;
     -moz-border-radius: 25%;
@@ -193,7 +193,6 @@ header {
 .student-home h3,
 .student-courses h3 {
     color: darkblue;
-    text-align: center;
 }
 
 .student-courses .activities-table {
@@ -202,7 +201,7 @@ header {
     border-spacing: 0;
     border: 4px solid darkblue;
     width: 100%;
-    margin: auto;
+    margin-bottom: 50px;
     border-radius: 1rem;
     padding: 25px;
     background-color: white;
@@ -226,10 +225,9 @@ header {
 
 .course-container {
     padding: 5px 0 10px 20px;
-
 }
 
-.course-container h3 {
-    text-align: left;
-
+.student-courses h2 {
+    text-align: center;
+    color: darkblue;
 }

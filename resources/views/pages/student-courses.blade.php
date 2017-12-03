@@ -52,8 +52,13 @@
                                 <td>
                                     N/A
                                 </td>
+                                <script>
+                                </script>
                                 <td>
-                                    <button ng-click="vm.openModal()" class="btn btn-primary">Edit</button>
+                                    <button ng-click="vm.openModal('{{$module->id}}', '{{$module->name}}', '{{$module->completionStatus->timeSpent}}')"
+                                            class="btn btn-primary">
+                                        Edit
+                                    </button>
                                 </td>
                             </tr>
 

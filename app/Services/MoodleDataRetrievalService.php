@@ -61,7 +61,7 @@ class MoodleDataRetrievalService
     {
         $this->urlBuilder
             ->newUrl($moodleUrl . "/webservice/rest/server.php")
-            ->withalways("wstoken", $wsToken)
+            ->withAlways("wstoken", $wsToken)
             ->withAlways("moodlewsrestformat", "json");
 
         $user = $this->getUserInfo();
