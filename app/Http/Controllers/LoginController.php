@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\HttpJsonService;
 use App\Services\MoodleAuthentication;
 use App\Services\MoodleDataRetrieval;
 use App\Services\MoodleSiteValidator;
@@ -39,9 +40,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->moodleDataRetrieval = new MoodleDataRetrieval(new UrlBuilder(), new Client(), new JsonMapper());
+        $httpJsonService = new HttpJsonService(new Client(), new JsonMapper());
+        $this->moodleDataRetrieval = new MoodleDataRetrieval(new UrlBuilder(), $httpJsonService);
         $this->moodleSiteValidator = new MoodleSiteValidator();
-        $this->authenticationService = new MoodleAuthentication();
+        $this->authenticationService = new MoodleAuthentication(new UrlBuilder(), $httpJsonService);
     }
 
 
@@ -74,15 +76,17 @@ class LoginController extends Controller
             return view('pages.login')->with('errorMessage', 'Moodle site not registered.');
         }
 
-        $wsToken = $this->authenticationService->authenticateUser($username, $password);
+        $wsToken = $this->authenticationService->authenticateUser($moodleUrl, $username, $password);
 
         if ($wsToken == null) {
-            return view('pages.login')->with('errorMessage', 'User credentials are invalid');
+            return view('pages.login')->with('errorMessage', 'Invalid user credentials');
         }
 
         session(['auth' => true]);
 
         $user = $this->moodleDataRetrieval->getUserData($moodleUrl, $wsToken);
+
+        //TODO - check if user exists in our database
 
         session(['user' => $user]);
 
