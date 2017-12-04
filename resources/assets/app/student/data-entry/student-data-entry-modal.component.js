@@ -9,14 +9,14 @@ angular.module('poMoodleApp').component('studentDataEntryModal', {
     }
 });
 
-angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$scope', '$timeout', 'timeUtil', function ($scope, $timeout, timeUtil) {
+angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$scope', '$timeout', 'timeUtil', 'httpService', function ($scope, $timeout, timeUtil, httpService) {
     var vm = this;
 
     vm.updateTime = updateTime;
 
 
     vm.$onInit = function () {
-        vm.module = vm.resolve.module;
+        vm.module = vm.resolve.activity;
         vm.slider = {
             options: {
                 floor: 0,
@@ -37,10 +37,15 @@ angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$s
         }, 1);
     }
 
+
     function updateTime() {
-        $timeout(function () {
-            vm.close();
-        }, 1000);
+        httpService.updateActivityDuration(vm.module.id, vm.module.duration)
+            .then(function () {
+                vm.close({$value: vm.module.duration});
+            }, function () {
+                alert("Error: could not update value");
+                vm.dismiss();
+            });
     }
 
 }]);

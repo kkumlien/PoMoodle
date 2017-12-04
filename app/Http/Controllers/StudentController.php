@@ -3,10 +3,26 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\StudentDataEntry;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    /**
+     * @var StudentDataEntry
+     */
+    private $studentDataEntry;
+
+
+    /**
+     * StudentController constructor.
+     */
+    public function __construct()
+    {
+        $this->studentDataEntry = new StudentDataEntry();
+    }
+
 
     /**
      * Handles requests for the student home page
@@ -44,6 +60,21 @@ class StudentController extends Controller
         }
 
         return view('pages.student-courses')->with('course', $selectedCourse);
+    }
+
+
+    public function dataEntry(Request $request)
+    {
+        if (!session('auth')) {
+            return redirect('login');
+        }
+
+        $activityId = $request->input('activityId');
+        $durationInMinutes = $request->input('duration');
+
+        $this->studentDataEntry->saveActivityDuration($activityId, $durationInMinutes);
+
+        return "hello";
     }
 
 

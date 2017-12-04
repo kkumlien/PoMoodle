@@ -10,6 +10,8 @@ Route::get('/student', 'StudentController@homePage');
 
 Route::get('/course', 'StudentController@coursePage');
 
+Route::get('/data-entry', 'StudentController@dataEntry');
+
 Route::get('/trends', 'StudentController@trendsPage');
 
 Route::get('/logout', function () {

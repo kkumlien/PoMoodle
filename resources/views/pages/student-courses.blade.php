@@ -45,17 +45,17 @@
                                     {{$module->name}}
                                 </td>
                                 <td>
-                                    @if($module->completionStatus->timecompleted > 0)
+                                    @if($module->completionStatus->state = 1)
                                         {{gmdate("Y-m-d", $module->completionStatus->timecompleted)}}
+                                    @else
+                                        N/A
                                     @endif
                                 </td>
                                 <td>
-                                    N/A
+                                    <span ng-bind="vm.activity['_{{$module->completionStatus->cmid}}']"></span>
                                 </td>
-                                <script>
-                                </script>
                                 <td>
-                                    <button ng-click="vm.openModal('{{$module->id}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"
+                                    <button ng-click="vm.openModal('{{$module->completionStatus->cmid}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"
                                             class="btn btn-primary">
                                         Edit
                                     </button>
