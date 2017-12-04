@@ -5,6 +5,8 @@ namespace App\Services;
 
 use App\Exceptions\MoodleSiteException;
 use App\Models\ActivitiesCompletionStatus;
+use App\Models\Course;
+use App\Models\Topic;
 use App\Models\User;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Exception\ServerException;
@@ -21,22 +23,25 @@ class MoodleDataRetrieval
     /**
      * @var UrlBuilder
      */
-    private $urlBuilder;
+    private $moodleUrlBuilder;
 
     /**
-     * @var HttpJsonService
+     * @var HttpJsonResponseService
      */
-    private $httpJsonService;
+    private $httpJsonResponseService;
+
+    private const MOODLE_REST_SERVICE =  '/webservice/rest/server.php';
 
     /**
-     * MoodleDataRetrieval constructor.
-     * @param UrlBuilder $urlBuilder
-     * @param HttpJsonService $httpJsonService
+     * MoodleDataRetrieval constructor
+     *
+     * @param UrlBuilder $moodleUrlBuilder
+     * @param HttpJsonResponseService $httpJsonResponseService
      */
-    public function __construct(UrlBuilder $urlBuilder, HttpJsonService $httpJsonService)
+    public function __construct(UrlBuilder $moodleUrlBuilder, HttpJsonResponseService $httpJsonResponseService)
     {
-        $this->urlBuilder = $urlBuilder;
-        $this->httpJsonService = $httpJsonService;
+        $this->moodleUrlBuilder = $moodleUrlBuilder;
+        $this->httpJsonResponseService = $httpJsonResponseService;
     }
 
 
@@ -49,15 +54,15 @@ class MoodleDataRetrieval
      */
     public function getUserData(string $moodleUrl, string $wsToken)
     {
-        $this->urlBuilder
-            ->newUrl($moodleUrl . '/webservice/rest/server.php')
+        $this->moodleUrlBuilder
+            ->newUrl($moodleUrl . self::MOODLE_REST_SERVICE)
             ->withAlways('wstoken', $wsToken)
-            ->withAlways('moodlewsrestformat','json');
+            ->withAlways('moodlewsrestformat', 'json');
 
         try {
             $user = $this->getUserInfo();
             $user->courses = $this->getUserCourses($user->userid);
-            $user = $this->getCourseData($user);
+            $this->populateUserCourseData($user);
         } catch (ServerException $exception) {
             throw new MoodleSiteException('Moodle site is down');
         }
@@ -68,30 +73,34 @@ class MoodleDataRetrieval
 
     private function getUserInfo()
     {
-        $url = $this->urlBuilder
-            ->withTemp('wsfunction', 'core_webservice_get_site_info')
+        $url = $this->moodleUrlBuilder
+            ->with('wsfunction', 'core_webservice_get_site_info')
             ->build();
 
-        $user = $this->httpJsonService->getResponseAsObject($url, new User());
+        $user = $this->httpJsonResponseService->getResponseAsObject($url, new User());
 
         return $user;
     }
 
 
+    /**
+     * @param int $userId
+     * @return Course[]
+     */
     private function getUserCourses(int $userId)
     {
-        $url = $this->urlBuilder
-            ->withTemp('wsfunction', 'core_enrol_get_users_courses')
-            ->withTemp('userid', $userId)
+        $url = $this->moodleUrlBuilder
+            ->with('wsfunction', 'core_enrol_get_users_courses')
+            ->with('userid', $userId)
             ->build();
 
-        $courses = $this->httpJsonService->getResponseAsObjectArray($url, 'App\Models\Course');
+        $courses = $this->httpJsonResponseService->getResponseAsObjectArray($url, 'App\Models\Course');
 
         return $courses;
     }
 
 
-    private function getCourseData($user)
+    private function populateUserCourseData($user)
     {
         foreach ($user->courses as $course) {
             $topics = $this->getCourseContent($course->id);
@@ -104,19 +113,21 @@ class MoodleDataRetrieval
 
             $course->topics = $topics;
         }
-
-        return $user;
     }
 
 
+    /**
+     * @param int $courseId
+     * @return Topic[]
+     */
     private function getCourseContent(int $courseId)
     {
-        $url = $this->urlBuilder
-            ->withTemp('wsfunction', 'core_course_get_contents')
-            ->withTemp('courseid', $courseId)
+        $url = $this->moodleUrlBuilder
+            ->with('wsfunction', 'core_course_get_contents')
+            ->with('courseid', $courseId)
             ->build();
 
-        $topics = $this->httpJsonService->getResponseAsObjectArray($url, 'App\Models\Topic');
+        $topics = $this->httpJsonResponseService->getResponseAsObjectArray($url, 'App\Models\Topic');
 
         return $topics;
     }
@@ -124,19 +135,19 @@ class MoodleDataRetrieval
 
     private function getActivitiesCompletionStatus(int $userId, int $courseId)
     {
-        $url = $this->urlBuilder
-            ->withTemp('wsfunction', 'core_completion_get_activities_completion_status')
-            ->withTemp('userid', $userId)
-            ->withTemp('courseid', $courseId)
+        $url = $this->moodleUrlBuilder
+            ->with('wsfunction', 'core_completion_get_activities_completion_status')
+            ->with('userid', $userId)
+            ->with('courseid', $courseId)
             ->build();
 
-        $activitiesCompletionStatus = $this->httpJsonService->getResponseAsObject($url, new ActivitiesCompletionStatus());
+        $activitiesCompletionStatus = $this->httpJsonResponseService->getResponseAsObject($url, new ActivitiesCompletionStatus());
 
         return $activitiesCompletionStatus;
     }
 
 
-    public function mergeActivitiesCompletionStatusToTopics($activitiesCompletionStatus, array $topics)
+    private function mergeActivitiesCompletionStatusToTopics($activitiesCompletionStatus, array $topics)
     {
 
         $completionStatuses = $activitiesCompletionStatus->statuses;

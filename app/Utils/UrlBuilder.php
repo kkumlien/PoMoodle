@@ -7,8 +7,8 @@ use RuntimeException;
 
 /**
  * Builds a parameterized url using the $baseUrl with $permanentParameters that will be used in every url build and
- * $temporaryParameters which will be cleared after each url build. All methods except for build return $this to allow
- * for method chaining.
+ * $temporaryParameters which will be cleared after each url build. All functions except for build return $this to allow
+ * for function chaining.
  *
  * Class UrlBuilder
  * @package App\Utils
@@ -46,7 +46,8 @@ class UrlBuilder
 
 
     /**
-     * Adds the a key and value to the parameters array. This parameter will used for every url build.
+     * Adds the a key and value to the parameters array. This parameter will used for every url build unless a new url
+     * is created using the newUrl function
      *
      * @param string $key
      * @param string $value
@@ -67,7 +68,7 @@ class UrlBuilder
      * @param string $value
      * @return $this
      */
-    public function withTemp(string $key, string $value)
+    public function with(string $key, string $value)
     {
         $this->temporaryParameters[$key] = $value;;
         return $this;

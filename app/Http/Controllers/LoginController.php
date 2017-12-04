@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\HttpJsonService;
+use App\Services\HttpJsonResponseService;
 use App\Services\MoodleAuthentication;
 use App\Services\MoodleDataRetrieval;
 use App\Services\MoodleSiteValidator;
@@ -40,10 +40,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $httpJsonService = new HttpJsonService(new Client(), new JsonMapper());
-        $this->moodleDataRetrieval = new MoodleDataRetrieval(new UrlBuilder(), $httpJsonService);
+        $httpJsonResponseService = new HttpJsonResponseService(new Client(), new JsonMapper());
+        $this->moodleDataRetrieval = new MoodleDataRetrieval(new UrlBuilder(), $httpJsonResponseService);
         $this->moodleSiteValidator = new MoodleSiteValidator();
-        $this->authenticationService = new MoodleAuthentication(new UrlBuilder(), $httpJsonService);
+        $this->authenticationService = new MoodleAuthentication(new UrlBuilder(), $httpJsonResponseService);
     }
 
 
@@ -87,6 +87,7 @@ class LoginController extends Controller
         $user = $this->moodleDataRetrieval->getUserData($moodleUrl, $wsToken);
 
         //TODO - check if user exists in our database
+        //TODO - populate database with moodle data
 
         session(['user' => $user]);
 

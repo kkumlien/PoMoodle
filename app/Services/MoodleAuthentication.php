@@ -11,35 +11,36 @@ class MoodleAuthentication
     /**
      * @var UrlBuilder
      */
-    private $urlBuilder;
+    private $moodleUrlBuilder;
 
     /**
-     * @var HttpJsonService
+     * @var HttpJsonResponseService
      */
-    private $httpJsonService;
+    private $httpJsonResponseService;
 
     /**
      * MoodleAuthentication constructor.
-     * @param UrlBuilder $urlBuilder
-     * @param HttpJsonService $httpJsonService
+     *
+     * @param UrlBuilder $moodleUrlBuilder
+     * @param HttpJsonResponseService $httpJsonResponseService
      */
-    public function __construct(UrlBuilder $urlBuilder, HttpJsonService $httpJsonService)
+    public function __construct(UrlBuilder $moodleUrlBuilder, HttpJsonResponseService $httpJsonResponseService)
     {
-        $this->urlBuilder = $urlBuilder;
-        $this->httpJsonService = $httpJsonService;
+        $this->moodleUrlBuilder = $moodleUrlBuilder;
+        $this->httpJsonResponseService = $httpJsonResponseService;
     }
 
 
     public function authenticateUser(string $moodleUrl, string $username, string $password)
     {
-        $url = $this->urlBuilder
+        $url = $this->moodleUrlBuilder
             ->newUrl($moodleUrl . '/login/token.php')
-            ->withTemp('username', $username)
-            ->withTemp('password', $password)
-            ->withTemp('service', 'moodle_mobile_app')
+            ->with('username', $username)
+            ->with('password', $password)
+            ->with('service', 'moodle_mobile_app')
             ->build();
 
-        $moodleToken = $this->httpJsonService->getResponseAsObject($url, new MoodleToken());
+        $moodleToken = $this->httpJsonResponseService->getResponseAsObject($url, new MoodleToken());
 
         if (!empty($moodleToken->token)) {
             return $moodleToken->token;

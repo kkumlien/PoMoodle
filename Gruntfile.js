@@ -4,7 +4,9 @@ module.exports = function (grunt) {
         clean: [
             'public/css',
             'public/js',
-            'public/view'
+            'public/view',
+            'public/fonts',
+            'public/img'
         ],
         concat: {
             options: {
@@ -53,6 +55,19 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            images: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'resources/assets/',
+                        flatten: true,
+                        src: [
+                            '**/*.png'
+                        ],
+                        dest: 'public/img/'
+                    }
+                ]
+            },
             fonts: {
                 files: [
                     {
@@ -96,7 +111,25 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
 
-    grunt.registerTask('default', ['clean', 'concat', 'concat_css', 'copy', 'copy:fonts', 'watch']);
-    grunt.registerTask('prod', ['clean', 'concat', 'uglify', 'concat_css', 'cssmin', 'copy', 'copy:fonts']);
+    grunt.registerTask('default', [
+        'clean',
+        'concat',
+        'concat_css',
+        'copy',
+        'copy:images',
+        'copy:fonts',
+        'watch'
+    ]);
+
+    grunt.registerTask('prod', [
+        'clean',
+        'concat',
+        'uglify',
+        'concat_css',
+        'cssmin',
+        'copy',
+        'copy:images',
+        'copy:fonts'
+    ]);
 
 };

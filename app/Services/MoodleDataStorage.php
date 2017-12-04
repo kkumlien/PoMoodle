@@ -22,19 +22,20 @@ class MoodleDataStorage
     private $urlBuilder;
 
     /**
-     * @var HttpJsonService
+     * @var HttpJsonResponseService
      */
-    private $httpJsonService;
+    private $httpJsonResponse;
 
     /**
-     * MoodleDataRetrieval constructor.
+     * MoodleDataRetrieval constructor
+     *
      * @param UrlBuilder $urlBuilder
-     * @param HttpJsonService $httpJsonService
+     * @param HttpJsonResponseService $httpJsonResponse
      */
-    public function __construct(UrlBuilder $urlBuilder, HttpJsonService $httpJsonService)
+    public function __construct(UrlBuilder $urlBuilder, HttpJsonResponseService $httpJsonResponse)
     {
         $this->urlBuilder = $urlBuilder;
-        $this->httpJsonService = $httpJsonService;
+        $this->httpJsonResponse = $httpJsonResponse;
     }
 
 
