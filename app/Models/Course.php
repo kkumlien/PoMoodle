@@ -2,7 +2,13 @@
 
 namespace App\Models;
 
-
+/**
+ * Course is modeled on Moodle's REST API response to wsfunction core_enrol_get_users_courses. $topics is not contained
+ * in the response.
+ *
+ * Class Course
+ * @package App\Models
+ */
 class Course
 {
     /**
@@ -51,7 +57,7 @@ class Course
     public $enddate;
 
     /**
-     * @var array Topic
+     * @var Topic[]
      */
     public $topics;
 

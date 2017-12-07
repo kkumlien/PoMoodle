@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 use JsonMapper;
 
 /**
- * Makes http requests to REST APIs that return JSON. Tthe JSON data it then parsed and returned as an object or object
+ * Makes http requests to REST APIs that return JSON. The JSON data is then parsed and returned as an object or object
  * array.
  *
  * Class HttpJsonResponseService

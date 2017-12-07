@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
-
+/**
+ * User is modeled on the Moodle REST API response to wsfunction core_webservice_get_site_info.
+ *
+ * Class User
+ * @package App\Models
+ */
 class User
 {
     /**
@@ -41,7 +46,7 @@ class User
     public $sitename;
 
     /**
-     * @var array Course
+     * @var Course[]
      */
     public $courses;
 

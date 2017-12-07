@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
-
+/**
+ * Topic is modeled on Moodle's REST API JSON response to wsfunction core_course_get_contents.
+ *
+ * Class Topic
+ * @package App\Models
+ */
 class Topic
 {
     /**
@@ -36,7 +41,7 @@ class Topic
     public $section;
 
     /**
-     * @var array Module
+     * @var Module[]
      */
     public $modules;
 

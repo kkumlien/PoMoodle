@@ -2,7 +2,13 @@
 
 namespace App\Models;
 
-
+/**
+ * Module is modeled on the 'modules' array contained in Moodle's REST API response to wsfunction
+ * core_course_get_contents. $completionStatus is not contained in the response.
+ *
+ * Class Module
+ * @package App\Models
+ */
 class Module
 {
     /**
