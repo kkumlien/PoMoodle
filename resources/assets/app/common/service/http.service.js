@@ -4,8 +4,8 @@ angular.module('poMoodleApp').factory('httpService', ['$http', function ($http) 
     };
 
 
-    function updateActivityDuration(activityId, duration) {
-        return http('GET', '/data-entry?activityId=' + activityId + '&duration=' + duration);
+    function updateActivityDuration(cmId, duration) {
+        return http('GET', '/data-entry?cmId=' + cmId + '&duration=' + duration);
     }
 
 

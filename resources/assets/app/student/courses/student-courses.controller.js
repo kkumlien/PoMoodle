@@ -5,9 +5,9 @@ angular.module('poMoodleApp').controller('StudentCoursesController', ['$uibModal
 
     vm.openModal = openModal;
 
-    function openModal(id, name, duration_in_minutes) {
+    function openModal(cmId, name, duration_in_minutes) {
         var selectedActivity = {
-            id: id,
+            cmId: cmId,
             name: name,
             duration: duration_in_minutes
         };
@@ -21,7 +21,7 @@ angular.module('poMoodleApp').controller('StudentCoursesController', ['$uibModal
 
         modalInstance.result.then(function (duration) {
             $timeout(function () {
-                vm.activity['_' + selectedActivity.id] = timeUtil.formatMinutes(duration);
+                vm.activity['_' + selectedActivity.cmId] = timeUtil.formatMinutes(duration);
             }, 500);
         });
     }

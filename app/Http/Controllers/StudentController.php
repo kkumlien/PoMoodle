@@ -69,10 +69,11 @@ class StudentController extends Controller
             return redirect('login');
         }
 
-        $activityId = $request->input('activityId');
+        $cmId = $request->input('cmId');
         $durationInMinutes = $request->input('duration');
+        $userId = 1; //TODO - get user id from the session
 
-        $this->studentDataEntry->saveActivityDuration($activityId, $durationInMinutes);
+        $this->studentDataEntry->saveActivityDuration($userId, $cmId, $durationInMinutes);
 
         return "hello";
     }
