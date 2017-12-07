@@ -25,7 +25,7 @@ class StudentController extends Controller
 
 
     /**
-     * Handles requests for the student home page
+     * Handles requests for the student home page.
      *
      * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -75,12 +75,12 @@ class StudentController extends Controller
 
         $this->studentDataEntry->saveActivityDuration($userId, $cmId, $durationInMinutes);
 
-        return "hello";
+        return true;
     }
 
 
     /**
-     * Handles requests for the student trends page
+     * Handles requests for the student trends page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

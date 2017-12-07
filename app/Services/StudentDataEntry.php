@@ -9,6 +9,14 @@ class StudentDataEntry
 {
     public function saveActivityDuration(string $userId, string $cmId, int $durationInMinutes)
     {
+        $this->saveActivityDurationToDatabase($userId, $cmId, $durationInMinutes);
+
+        $this->updateSessionModel($cmId, $durationInMinutes);
+
+    }
+
+    private function saveActivityDurationToDatabase(string $userId, string $cmId, int $durationInMinutes)
+    {
         $results = DB::select('SELECT activity_id FROM pm_activities WHERE user_id = ? OR cm_id = ?', [$userId, $cmId]);
 
         if (empty($results)) {
@@ -34,6 +42,12 @@ class StudentDataEntry
             'UPDATE pm_activities SET duration_in_minutes = ? WHERE user_id = ? AND cm_id = ?',
             [$durationInMinutes, $userId, $cmId]
         );
+    }
+
+
+    private function updateSessionModel(string $cmId, int $durationInMinutes)
+    {
+        //TODO
     }
 
 
