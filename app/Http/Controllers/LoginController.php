@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\SessionConstant;
 use App\Services\HttpJsonResponseService;
 use App\Services\MoodleAuthentication;
 use App\Services\MoodleDataRetrieval;
@@ -12,8 +13,6 @@ use Illuminate\Http\Request;
 use JsonMapper;
 use Validator;
 
-// use Illuminate\Foundation\Auth\AuthenticatesUsers;
-// use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -22,7 +21,6 @@ class LoginController extends Controller
      * @var MoodleDataRetrieval
      */
     private $moodleDataRetrieval;
-
 
     /**
      * @var MoodleSiteValidator
@@ -82,14 +80,14 @@ class LoginController extends Controller
             return view('pages.login')->with('errorMessage', 'Invalid user credentials');
         }
 
-        session(['auth' => true]);
+        session([SessionConstant::AUTH => true]);
 
         $user = $this->moodleDataRetrieval->getUserData($moodleUrl, $wsToken);
 
         //TODO - check if user exists in our database
         //TODO - populate database with moodle data
 
-        session(['user' => $user]);
+        session([SessionConstant::USER => $user]);
 
         return redirect('student');
 

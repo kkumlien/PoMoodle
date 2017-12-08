@@ -12,6 +12,11 @@ namespace App\Models;
 class Module
 {
     /**
+     * @var int
+     */
+    public $id;
+
+    /**
      * @var string
      */
     public $url;
@@ -56,6 +61,5 @@ class Module
      * @var CompletionStatus
      */
     public $completionStatus;
-
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Constants\SessionConstant;
 use App\Services\StudentDataEntry;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class StudentController extends Controller
             return redirect('login');
         }
 
-        $user = session('user');
+        $user = session(SessionConstant::USER);
 
         return view('pages.student-home')->with('user', $user);
     }

@@ -30,7 +30,7 @@ class MoodleDataRetrieval
      */
     private $responseService;
 
-    private const MOODLE_REST_SERVICE =  '/webservice/rest/server.php';
+    private const MOODLE_REST_SERVICE = '/webservice/rest/server.php';
 
     /**
      * MoodleDataRetrieval constructor.
@@ -129,7 +129,19 @@ class MoodleDataRetrieval
 
         $topics = $this->responseService->getResponseAsObjectArray($url, 'App\Models\Topic');
 
+        $this->removeGeneralTopic($topics);
+
         return $topics;
+    }
+
+    /**
+     * Remove the default general topic from the topic array
+     *
+     * @param array $topics
+     */
+    private function removeGeneralTopic(array $topics)
+    {
+        array_shift($topics);
     }
 
 
@@ -153,6 +165,7 @@ class MoodleDataRetrieval
 
 
     /**
+     * Adds the activityCompletionStatus to each module where the module id is equal to the completionStatus cmid.
      *
      * @param ActivitiesCompletionStatus $activitiesCompletionStatus
      * @param array $topics
@@ -160,21 +173,21 @@ class MoodleDataRetrieval
      */
     private function mergeActivitiesCompletionStatusToTopics(ActivitiesCompletionStatus $activitiesCompletionStatus, array $topics)
     {
-
         $completionStatuses = $activitiesCompletionStatus->statuses;
 
-        $moduleIndex = 0;
-
-        for ($i = 1; $i < count($topics); $i++) {
-            $modules = $topics[$i]->modules;
+        foreach ($topics as $topic) {
+            $modules = $topic->modules;
 
             foreach ($modules as $module) {
-                $module->completionStatus = $completionStatuses[$moduleIndex++];
+                foreach ($completionStatuses as $completionStatus) {
+                    if ($module->id == $completionStatus->cmid) {
+                        $module->completionStatus = $completionStatus;
+                    }
+                }
             }
         }
 
         return $topics;
-
     }
 
 }

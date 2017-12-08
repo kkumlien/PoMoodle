@@ -13,64 +13,59 @@
             <h2>{{$course->fullname}}</h2>
 
             @foreach($course->topics as $topic)
-                @if($topic->name != "General")
 
-                    <h3>{{$topic->name}}</h3>
+                <h3>{{$topic->name}}</h3>
 
-                    <table class="activities-table">
+                <table class="activities-table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Activity Name
+                        </th>
+                        <th>
+                            Completed Date
+                        </th>
+                        <th>
+                            Duration
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    </thead>
 
-                        <thead>
+                    <tbody>
+
+                    @foreach($topic->modules as $module)
+
                         <tr>
-                            <th>
-                                Activity Name
-                            </th>
-                            <th>
-                                Completed Date
-                            </th>
-                            <th>
-                                Duration
-                            </th>
-                            <th>
-                            </th>
+                            <td>
+                                {{$module->name}}
+                            </td>
+                            <td>
+                                @if($module->completionStatus->state == 1)
+                                    {{gmdate("Y-m-d", $module->completionStatus->timecompleted)}}
+                                @endif
+                            </td>
+                            <td>
+                                <span ng-bind="vm.activity['_{{$module->completionStatus->cmid}}']"></span>
+                            </td>
+                            <td>
+                                <button ng-click="vm.openModal('{{$module->completionStatus->cmid}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"
+                                        ng-disabled="{{$module->completionStatus->state != 1}}"
+                                        class="btn btn-primary">
+                                    Edit
+                                </button>
+                            </td>
                         </tr>
-                        </thead>
 
-                        <tbody>
+                    @endforeach
 
-                        @foreach($topic->modules as $module)
+                    </tbody>
+                </table>
 
-                            <tr>
-                                <td>
-                                    {{$module->name}}
-                                </td>
-                                <td>
-                                    @if($module->completionStatus->state == 1)
-                                        {{gmdate("Y-m-d", $module->completionStatus->timecompleted)}}
-                                    @endif
-                                </td>
-                                <td>
-                                    <span ng-bind="vm.activity['_{{$module->completionStatus->cmid}}']"></span>
-                                </td>
-                                <td>
-                                    <button ng-click="vm.openModal('{{$module->completionStatus->cmid}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"
-                                            ng-disabled="{{$module->completionStatus->state != 1}}"
-                                            class="btn btn-primary">
-                                        Edit
-                                    </button>
-                                </td>
-                            </tr>
-
-                        @endforeach
-
-                        </tbody>
-
-                    </table>
-
-                @endif
             @endforeach
 
         </div>
-
     </div>
 
 @endsection
