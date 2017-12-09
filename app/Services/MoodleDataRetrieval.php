@@ -129,19 +129,21 @@ class MoodleDataRetrieval
 
         $topics = $this->responseService->getResponseAsObjectArray($url, 'App\Models\Topic');
 
-        $this->removeGeneralTopic($topics);
+        $topics = $this->removeGeneralTopic($topics);
 
         return $topics;
     }
 
     /**
-     * Remove the default general topic from the topic array
+     * Removes the default general topic from the topic array.
      *
-     * @param array $topics
+     * @param Topic[] $topics
+     * @return array
      */
     private function removeGeneralTopic(array $topics)
     {
         array_shift($topics);
+        return $topics;
     }
 
 
@@ -165,7 +167,7 @@ class MoodleDataRetrieval
 
 
     /**
-     * Adds the activityCompletionStatus to each module where the module id is equal to the completionStatus cmid.
+     * Adds the activityCompletionStatus associated.
      *
      * @param ActivitiesCompletionStatus $activitiesCompletionStatus
      * @param array $topics
