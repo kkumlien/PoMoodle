@@ -98,7 +98,7 @@ class LoginController extends Controller
         // We're authenticated, happy days
         session([SessionConstant::AUTH => true]);
         session([SessionConstant::USER => $user]);
-        session(['userID' => $userID]);
+        session([SessionConstant::USER_ID => $userID]);
 
         return redirect('student');
 

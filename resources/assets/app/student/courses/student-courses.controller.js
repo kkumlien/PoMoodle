@@ -22,6 +22,7 @@ angular.module('poMoodleApp').controller('StudentCoursesController', ['$uibModal
         modalInstance.result.then(function (duration) {
             $timeout(function () {
                 vm.activity['_' + selectedActivity.cmId] = timeUtil.formatMinutes(duration);
+                $window.location.reload();
             }, 500);
         });
     }

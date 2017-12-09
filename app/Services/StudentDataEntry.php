@@ -11,8 +11,6 @@ class StudentDataEntry
     {
         $this->saveActivityDurationToDatabase($userId, $cmId, $durationInMinutes);
 
-        $this->updateSessionModel($cmId, $durationInMinutes);
-
     }
 
     private function saveActivityDurationToDatabase(string $userId, string $cmId, int $durationInMinutes)
@@ -45,9 +43,18 @@ class StudentDataEntry
     }
 
 
-    private function updateSessionModel(string $cmId, int $durationInMinutes)
+    public function updateCoursesModel(array $courses, string $cmId, int $durationInMinutes)
     {
-        //TODO
+        foreach ($courses as $course) {
+            foreach ($course->topics as $topic) {
+                foreach ($topic->modules as $module) {
+                    if ($module->id == $cmId) {
+                        $module->completionStatus->duration_in_minutes = $durationInMinutes;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
 

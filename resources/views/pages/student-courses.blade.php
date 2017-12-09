@@ -54,7 +54,7 @@
                                 @endif
                             </td>
                             <td>
-                                <span ng-bind="vm.activity['_{{$module->completionStatus->cmid}}']"></span>
+                                {{$module->completionStatus->duration_in_minutes}}
                             </td>
                             <td>
                                 <button ng-click="vm.openModal('{{$module->completionStatus->cmid}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"

@@ -72,11 +72,13 @@ class StudentController extends Controller
 
         $cmId = $request->input('cmId');
         $durationInMinutes = $request->input('duration');
-        $userId = 1; //TODO - get user id from the session
+        $userId = session(SessionConstant::USER_ID);
 
         $this->studentDataEntry->saveActivityDuration($userId, $cmId, $durationInMinutes);
 
-        return true;
+        $user = session(SessionConstant::USER);
+
+        $this->studentDataEntry->updateCoursesModel($user->courses, $cmId, $durationInMinutes);
     }
 
 

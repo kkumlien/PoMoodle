@@ -9,6 +9,6 @@ class SessionConstant
 
     public const USER = 'user';
 
-    public const USER_ID = 'userId';
+    public const USER_ID = 'userID';
 
 }
