@@ -32,7 +32,7 @@ class StudentController extends Controller
      */
     public function homePage()
     {
-        if (!session('auth')) {
+        if (!session(SessionConstant::AUTH)) {
             return redirect('login');
         }
 
@@ -44,13 +44,13 @@ class StudentController extends Controller
 
     public function coursePage(Request $request)
     {
-        if (!session('auth')) {
+        if (!session(SessionConstant::AUTH)) {
             return redirect('login');
         }
 
         $courseId = $request->input('id');
 
-        $user = session('user');
+        $user = session(SessionConstant::USER);
 
         $selectedCourse = null;
 
@@ -66,7 +66,7 @@ class StudentController extends Controller
 
     public function dataEntry(Request $request)
     {
-        if (!session('auth')) {
+        if (!session(SessionConstant::AUTH)) {
             return redirect('login');
         }
 
@@ -87,12 +87,15 @@ class StudentController extends Controller
      */
     public function trendsPage()
     {
-        if (!session('auth')) {
+        if (!session(SessionConstant::AUTH)) {
             return redirect('login');
         }
 
-        $user = session('user');
+        $user = session(SessionConstant::USER);
 
-        return view('pages.student-trends')->with('user', json_encode($user));
+        $course = $user->courses[0];
+
+        return view('pages.student-trends')->with('course', json_encode($course));
     }
+
 }
