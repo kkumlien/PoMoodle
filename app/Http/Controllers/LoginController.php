@@ -6,13 +6,14 @@ use App\Constants\SessionConstant;
 use App\Services\HttpJsonResponseService;
 use App\Services\MoodleAuthentication;
 use App\Services\MoodleDataRetrieval;
+use App\Services\MoodleDataStorage;
 use App\Services\MoodleSiteValidator;
 use App\Utils\UrlBuilder;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use JsonMapper;
 use Validator;
-
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -32,6 +33,10 @@ class LoginController extends Controller
      */
     private $authenticationService;
 
+    /**
+     * @var MoodleDataStorage
+     */
+    private $moodleDataStorage;
 
     /**
      * LoginController constructor.
@@ -42,6 +47,7 @@ class LoginController extends Controller
         $this->moodleDataRetrieval = new MoodleDataRetrieval(new UrlBuilder(), $httpJsonResponseService);
         $this->moodleSiteValidator = new MoodleSiteValidator();
         $this->authenticationService = new MoodleAuthentication(new UrlBuilder(), $httpJsonResponseService);
+        $this->moodleDataStorage = new MoodleDataStorage();
     }
 
 
@@ -68,7 +74,9 @@ class LoginController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $moodleUrl = $this->moodleSiteValidator->validateMoodleSite($moodleSite);
+        $moodleSiteData = $this->moodleSiteValidator->validateMoodleSite($moodleSite);
+
+        $moodleUrl = $moodleSiteData->site_url;
 
         if ($moodleUrl == null) {
             return view('pages.login')->with('errorMessage', 'Moodle site not registered.');
@@ -77,19 +85,23 @@ class LoginController extends Controller
         $wsToken = $this->authenticationService->authenticateUser($moodleUrl, $username, $password);
 
         if ($wsToken == null) {
-            return view('pages.login')->with('errorMessage', 'Invalid user credentials');
+            return view('pages.login')->with('errorMessage', 'Invalid user credentials.');
         }
-
-        session([SessionConstant::AUTH => true]);
 
         $user = $this->moodleDataRetrieval->getUserData($moodleUrl, $wsToken);
 
-        //TODO - check if user exists in our database
-        //TODO - populate database with moodle data
+        // Create or update data in our local database
+        $userID = $this->moodleDataStorage->storeUserData($user, $moodleSiteData->site_id);
 
+        //Log::debug(print_r($user, true));
+
+        // We're authenticated, happy days
+        session([SessionConstant::AUTH => true]);
         session([SessionConstant::USER => $user]);
+        session(['userID' => $userID]);
 
         return redirect('student');
 
     }
+
 }

@@ -17,7 +17,7 @@ class StudentDataEntry
 
     private function saveActivityDurationToDatabase(string $userId, string $cmId, int $durationInMinutes)
     {
-        $results = DB::select('SELECT activity_id FROM pm_activities WHERE user_id = ? OR cm_id = ?', [$userId, $cmId]);
+        $results = DB::select('SELECT activity_id FROM pm_activities WHERE user_id = ? AND cm_id = ?', [$userId, $cmId]);
 
         if (empty($results)) {
             $this->insertActivityDuration($userId, $cmId, $durationInMinutes);

@@ -14,30 +14,37 @@
 
             @foreach($course->topics as $topic)
 
-                <h3>{{$topic->name}}</h3>
-
-                <table class="activities-table">
-                    <thead>
-                    <tr>
-                        <th>
-                            Activity Name
-                        </th>
-                        <th>
-                            Completed Date
-                        </th>
-                        <th>
-                            Duration
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
                     @foreach($topic->modules as $module)
 
-                        <tr>
+                        @if(!empty($module->completionStatus))
+
+                            @if($loop->first)
+
+                            <h3>{{$topic->name}}</h3>
+
+                            <table class="activities-table">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Activity
+                                    </th>
+                                    <th>
+                                        Completed
+                                    </th>
+                                    <th>
+                                        Duration
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                            @endif
+
+                            <tr>
                             <td>
                                 {{$module->name}}
                             </td>
@@ -56,12 +63,18 @@
                                     Edit
                                 </button>
                             </td>
-                        </tr>
+                            </tr>
+
+                            @if($loop->last)
+
+                                </tbody>
+                            </table>
+
+                            @endif
+
+                        @endif
 
                     @endforeach
-
-                    </tbody>
-                </table>
 
             @endforeach
 
