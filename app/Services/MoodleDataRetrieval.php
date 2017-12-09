@@ -185,6 +185,7 @@ class MoodleDataRetrieval
                     if ($module->id == $completionStatus->cmid) {
                         $module->completionStatus = $completionStatus;
                     }
+
                 }
             }
         }

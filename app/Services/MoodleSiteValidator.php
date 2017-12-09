@@ -11,18 +11,24 @@ class MoodleSiteValidator
      * Checks if the moodleSite registered in the database
      *
      * @param string $moodleSite - the Moodle site url or alias
-     * @return string moodleUrl if moodle site is registered or null if it's not registered
+     * @return array with siteID and moodleUrl if moodle site is registered or null if it's not registered
      */
     public function validateMoodleSite(string $moodleSite)
     {
-        $results = DB::select('SELECT site_url FROM pm_sites WHERE site_url = ?'
+
+        //TODO - create MoodleSite model and return that instead of array
+
+        $results = DB::select('SELECT site_id, site_url FROM pm_sites WHERE site_url = ?'
             . ' OR site_alias = ?', [$moodleSite, $moodleSite]);
 
         if (!empty($results)) {
-            return $results[0]->site_url;
+
+            return $results[0];
+
         }
 
         return null;
+
     }
 
 }
