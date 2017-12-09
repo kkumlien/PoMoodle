@@ -28,6 +28,6 @@ class User extends Model
      */
     public $timestamps = false;
 
-    protected $fillable = ['username', 'site_id'];
+    protected $fillable = ['user_name', 'site_id'];
 
 }

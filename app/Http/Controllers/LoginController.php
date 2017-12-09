@@ -76,7 +76,7 @@ class LoginController extends Controller
 
         $moodleSiteData = $this->moodleSiteValidator->validateMoodleSite($moodleSite);
 
-        $moodleUrl = $moodleSiteData->site_url;
+        $moodleUrl = empty($moodleSiteData->site_url) ? null : $moodleSiteData->site_url;
 
         if ($moodleUrl == null) {
             return view('pages.login')->with('errorMessage', 'Moodle site not registered.');

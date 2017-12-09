@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\DB\User as DBUser;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Stores data from Moodle into our own database
@@ -25,9 +26,10 @@ class MoodleDataStorage
     public function storeUserData(User $user, $siteID)
     {
 
-        $dbUser = DBUser::updateOrCreate(
-            ['user_name' => $user->username],
-            ['user_name' => $user->username, 'site_id' => $siteID]
+        Log::debug("Attempting to create user if it doesn't exist: " . trim($user->username));
+
+        $dbUser = DBUser::firstOrCreate(
+            ['user_name' => trim($user->username), 'site_id' => $siteID]
         );
 
         return $dbUser->user_id;
