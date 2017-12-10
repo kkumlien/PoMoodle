@@ -62,7 +62,7 @@ class StudentController extends Controller
             return redirect('login');
         }
 
-        $courseId = $request->input('id');
+        $courseId = $request->input('courseId');
 
         $user = session(SessionConstant::USER);
 
@@ -100,6 +100,7 @@ class StudentController extends Controller
     /**
      * Handles requests for the student trends page.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function trendsPage(Request $request)
@@ -112,8 +113,11 @@ class StudentController extends Controller
 
         $user = session(SessionConstant::USER);
 
-        //$course = $this->courseUtils->findCourseFromCourseId($user->courses, $courseId); TODO
-        $course = $user->courses[0];
+        if ($courseId != null) {
+            $course = $this->courseUtils->findCourseFromCourseId($user->courses, $courseId);
+        } else {
+            $course = $user->courses[0];
+        }
 
         return view('pages.student-trends')->with('course', json_encode($course));
     }

@@ -227,6 +227,22 @@ header {
     padding: 5px 0 10px 20px;
 }
 
+.course-container .chart {
+    margin-top: 15px;
+}
+
+.course-container .chart-icon {
+    background-image: url("/img/chart-icon.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 75px;
+    width: 75px;
+}
+
+.course-container .course-summary {
+    margin-left: 25px;
+}
+
 .student-courses h2 {
     text-align: center;
     color: #122b40;

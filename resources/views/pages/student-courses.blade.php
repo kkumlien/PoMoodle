@@ -49,7 +49,7 @@
                                 @endif
                             </td>
                             <td style="width: 10%; text-align: center">
-                                {{ \App\Models\CompletionStatus::convertToHoursMins($module->completionStatus->duration_in_minutes) }}
+                                {{ \App\Utils\TimeUtils::convertToHoursAndMinutes($module->completionStatus->duration_in_minutes) }}
                             </td>
                             <td style="width: 10%">
                                 <button ng-click="vm.openModal('{{$module->completionStatus->cmid}}', '{{$module->name}}', '{{$module->completionStatus->duration_in_minutes}}')"
