@@ -192,14 +192,14 @@ header {
 
 .student-home h3,
 .student-courses h3 {
-    color: darkblue;
+    color: #122b40;
 }
 
 .student-courses .activities-table {
     line-height: 70px;
     border-collapse: separate;
     border-spacing: 0;
-    border: 4px solid darkblue;
+    border: 4px solid #122b40;
     width: 100%;
     margin-bottom: 50px;
     border-radius: 1rem;
@@ -229,5 +229,5 @@ header {
 
 .student-courses h2 {
     text-align: center;
-    color: darkblue;
+    color: #122b40;
 }

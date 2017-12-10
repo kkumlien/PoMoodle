@@ -17,14 +17,17 @@ angular.module('poMoodleApp').controller('StudentTrendsController', ['chartFacto
 
         course.topics.forEach(function (topic) {
             topic.modules.forEach(function (module) {
-                // data.push(module.completionStatus.duration_in_minutes);//TODO - use this when data is populated from the database
-                data.push(10);
+                if (module.completionStatus.state === 1) {
+                    data.push(module.completionStatus.duration_in_minutes);
+                } else {
+                    data.push(null);
+                }
             })
         });
 
         var series = [];
 
-        series.push({data: data});
+        series.push({data: data /*[30,null,60,30,0,120,150,360,60,90,30,15] */});
 
         vm.series = series;
         vm.categories = categories;

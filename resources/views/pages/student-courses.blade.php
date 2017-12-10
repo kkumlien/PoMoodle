@@ -41,7 +41,7 @@
 
                             <tr>
                             <td style="width: 70%">
-                                {{$module->name}}
+                                <a href="{{$module->url}}">{{$module->name}}</a>
                             </td>
                             <td style="width: 10%">
                                 @if($module->completionStatus->state == 1)
