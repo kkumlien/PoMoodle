@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Constants\SessionConstant;
 use App\Services\StudentDataEntry;
+use App\Utils\CourseUtils;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-
     /**
      * @var StudentDataEntry
      */
@@ -17,11 +17,19 @@ class StudentController extends Controller
 
 
     /**
-     * StudentController constructor.
+     * @var CourseUtils
      */
-    public function __construct()
+    private $courseUtils;
+
+    /**
+     * StudentController constructor.
+     * @param StudentDataEntry $studentDataEntry
+     * @param CourseUtils $courseUtils
+     */
+    public function __construct(StudentDataEntry $studentDataEntry, CourseUtils $courseUtils)
     {
         $this->studentDataEntry = new StudentDataEntry();
+        $this->courseUtils = new CourseUtils();
     }
 
 
@@ -42,6 +50,12 @@ class StudentController extends Controller
     }
 
 
+    /**
+     * Receives requests for the course page and returns the view with the selected course.
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function coursePage(Request $request)
     {
         if (!session(SessionConstant::AUTH)) {
@@ -52,18 +66,18 @@ class StudentController extends Controller
 
         $user = session(SessionConstant::USER);
 
-        $selectedCourse = null;
+        $course = $this->courseUtils->findCourseFromCourseId($user->courses, $courseId);
 
-        foreach ($user->courses as $course) {
-            if ($course->id == $courseId) {
-                $selectedCourse = $course;
-            }
-        }
-
-        return view('pages.student-courses')->with('course', $selectedCourse);
+        return view('pages.student-courses')->with('course', $course);
     }
 
 
+    /**
+     * Receives requests for updating the activity duration.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
+     */
     public function dataEntry(Request $request)
     {
         if (!session(SessionConstant::AUTH)) {
@@ -72,13 +86,14 @@ class StudentController extends Controller
 
         $cmId = $request->input('cmId');
         $durationInMinutes = $request->input('duration');
+
         $userId = session(SessionConstant::USER_ID);
-
-        $this->studentDataEntry->saveActivityDuration($userId, $cmId, $durationInMinutes);
-
         $user = session(SessionConstant::USER);
 
-        $this->studentDataEntry->updateCoursesModel($user->courses, $cmId, $durationInMinutes);
+        $this->studentDataEntry->saveActivityDuration($userId, $cmId, $durationInMinutes);
+        $this->studentDataEntry->updateCourseWithNewDuration($user->courses, $cmId, $durationInMinutes);
+
+        return "true";
     }
 
 
@@ -87,14 +102,17 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function trendsPage()
+    public function trendsPage(Request $request)
     {
         if (!session(SessionConstant::AUTH)) {
             return redirect('login');
         }
 
+        $courseId = $request->input('id');
+
         $user = session(SessionConstant::USER);
 
+        //$course = $this->courseUtils->findCourseFromCourseId($user->courses, $courseId); TODO
         $course = $user->courses[0];
 
         return view('pages.student-trends')->with('course', json_encode($course));

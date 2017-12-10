@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class StudentDataEntry
 {
+    /**
+     * Saves the activity duration to the database.
+     *
+     * @param string $userId
+     * @param string $cmId
+     * @param int $durationInMinutes
+     */
     public function saveActivityDuration(string $userId, string $cmId, int $durationInMinutes)
     {
         $this->saveActivityDurationToDatabase($userId, $cmId, $durationInMinutes);
@@ -43,7 +50,14 @@ class StudentDataEntry
     }
 
 
-    public function updateCoursesModel(array $courses, string $cmId, int $durationInMinutes)
+    /**
+     * Update the courses model with the duration associated with the cmId.
+     *
+     * @param array $courses
+     * @param string $cmId
+     * @param int $durationInMinutes
+     */
+    public function updateCourseWithNewDuration(array $courses, string $cmId, int $durationInMinutes)
     {
         foreach ($courses as $course) {
             foreach ($course->topics as $topic) {

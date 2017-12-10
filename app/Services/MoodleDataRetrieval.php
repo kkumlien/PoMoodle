@@ -19,7 +19,6 @@ use GuzzleHttp\Exception\ServerException;
  */
 class MoodleDataRetrieval
 {
-
     /**
      * @var UrlBuilder
      */
@@ -31,6 +30,7 @@ class MoodleDataRetrieval
     private $responseService;
 
     private const MOODLE_REST_SERVICE = '/webservice/rest/server.php';
+
 
     /**
      * MoodleDataRetrieval constructor.
@@ -71,6 +71,9 @@ class MoodleDataRetrieval
     }
 
 
+    /**
+     * @return User|object
+     */
     private function getUserInfo()
     {
         $url = $this->moodleUrlBuilder
@@ -100,14 +103,16 @@ class MoodleDataRetrieval
     }
 
 
+    /**
+     * Add the course data from Moodle to the User object.
+     * @param User $user
+     */
     private function populateUserCourseData($user)
     {
         foreach ($user->courses as $course) {
             $topics = $this->getCourseContent($course->id);
 
             $activitiesCompletionStatus = $this->getActivitiesCompletionStatus($user->userid, $course->id);
-
-            //TODO - merge $activitiesCompletionStatus with activities time spent from database
 
             $topics = $this->mergeActivitiesCompletionStatusToTopics($activitiesCompletionStatus, $topics);
 
@@ -135,7 +140,7 @@ class MoodleDataRetrieval
     }
 
     /**
-     * Removes the default general topic from the topic array.
+     * Moodle adds a General topic to the start of all Courses. This removes the General topic from the topic array.
      *
      * @param Topic[] $topics
      * @return array
@@ -167,8 +172,6 @@ class MoodleDataRetrieval
 
 
     /**
-     * Adds the activityCompletionStatus associated.
-     *
      * @param ActivitiesCompletionStatus $activitiesCompletionStatus
      * @param array $topics
      * @return array

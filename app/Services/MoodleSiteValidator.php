@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class MoodleSiteValidator
 {
     /**
-     * Checks if the moodleSite registered in the database
+     * Checks if the moodleSite registered in the database.
      *
      * @param string $moodleSite - the Moodle site url or alias
      * @return array with siteID and moodleUrl if moodle site is registered or null if it's not registered

@@ -34,14 +34,14 @@ class CompletionStatus
      */
     public $duration_in_minutes;
 
-    public static function convertToHoursMins($time) {
-
+    public static function convertToHoursMins($time)
+    {
         if ($time < 1) {
-            return;
+            return "";
         }
 
         $hours = floor($time / 60);
-        $minutes = ($time % 60);
+        $minutes = $time % 60;
 
         $format = '';
 

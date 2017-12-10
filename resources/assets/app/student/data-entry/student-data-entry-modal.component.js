@@ -43,8 +43,6 @@ angular.module('poMoodleApp').controller('studentDataEntryModalController', ['$s
             .then(function () {
                 vm.close({$value: vm.activity.duration});
             }, function (error) {
-                console.log('error');
-                console.log(error);
                 alert("Error: could not update value");
                 vm.dismiss();
             });

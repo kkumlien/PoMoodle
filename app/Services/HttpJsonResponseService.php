@@ -40,7 +40,7 @@ class HttpJsonResponseService
 
 
     /**
-     * Makes a http request and maps the json response to an object
+     * Makes a http request and maps the json response to an object.
      *
      * @param string $url - http request url
      * @param $object - the object to parse the json to e.g. new Object
@@ -56,7 +56,7 @@ class HttpJsonResponseService
 
 
     /**
-     * Makes a http request and maps the json response to an object array
+     * Makes a http request and maps the json response to an object array.
      *
      * @param string $url - http request url
      * @param string $class - the full path to the class to convert to e.g. 'App\Models\Object'

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use App\Models\DB\User as DBUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Log;
  * Class MoodleDataStorage
  * @package App\Services
  */
-class MoodleDataStorage
+class MoodleDataStorage //TODO rename to DataStorage
 {
-
     /**
-     * Stores user data from Moodle containing user and course information
-     * and returns the user ID
+     * Stores user data from Moodle containing user and course information if the user doesn't exist has and returns the
+     * user ID form the database.
      *
      * @param User $user
      * @param int $siteID

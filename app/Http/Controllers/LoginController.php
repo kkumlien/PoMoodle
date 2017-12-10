@@ -69,7 +69,8 @@ class LoginController extends Controller
 
 
     /**
-     * Handles authenticating users for the application and redirecting them to your home screen
+     * Handles authenticating users for the application, retrieves the data from Moodle then redirects to your home
+     * screen
      *
      * @param Request $request
      * @return $this

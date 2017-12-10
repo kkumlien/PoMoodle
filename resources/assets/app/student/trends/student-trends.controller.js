@@ -27,7 +27,7 @@ angular.module('poMoodleApp').controller('StudentTrendsController', ['chartFacto
 
         var series = [];
 
-        series.push({data: data /*[30,null,60,30,0,120,150,360,60,90,30,15] */});
+        series.push({data: data});
 
         vm.series = series;
         vm.categories = categories;

@@ -31,6 +31,14 @@ class MoodleAuthentication
     }
 
 
+    /**
+     * Authenticates user against Moodle and return a MoodleToken if the user credentials are valid.
+     *
+     * @param string $moodleUrl
+     * @param string $username
+     * @param string $password
+     * @return MoodleToken|null
+     */
     public function authenticateUser(string $moodleUrl, string $username, string $password)
     {
         $url = $this->moodleUrlBuilder
