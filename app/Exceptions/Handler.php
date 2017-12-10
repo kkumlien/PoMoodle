@@ -33,6 +33,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Exception $exception
      * @return void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -48,14 +49,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        $errorMessage = '';
+
         if ($exception instanceof MoodleSiteException) {
             $errorMessage = 'Your Moodle site is not responsive.';
-        } else {
-            $errorMessage = 'Whoops, looks like something went wrong.';
         }
 
         if (!env('APP_DEBUG')) {
-            return response()->view('pages.error', ['errorMessage' => $errorMessage], 500);
+            return response()->view('errors.error', ['errorMessage' => $errorMessage], 500);
         }
 
         return parent::render($request, $exception);

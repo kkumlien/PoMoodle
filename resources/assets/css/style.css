@@ -231,3 +231,10 @@ header {
     text-align: center;
     color: #122b40;
 }
+
+.pm-error {
+    background: none;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
