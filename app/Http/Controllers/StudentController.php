@@ -109,7 +109,7 @@ class StudentController extends Controller
             return redirect('login');
         }
 
-        $courseId = $request->input('id');
+        $courseId = $request->input('courseId');
 
         $user = session(SessionConstant::USER);
 

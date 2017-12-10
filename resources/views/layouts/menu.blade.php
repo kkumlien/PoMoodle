@@ -17,10 +17,11 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/trends">Trends</a></li>
+                <li><a href="/trends?courseId={{ (Request::get('courseId')) }}">Trends</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text"><span class="label label-primary">{{ Session::get('user')->fullname }}</span></p></li>
+                <li><p class="navbar-text"><span class="label label-primary">{{ Session::get('user')->fullname }}</span>
+                    </p></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </div>

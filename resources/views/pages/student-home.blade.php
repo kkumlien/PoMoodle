@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="col-xs-2 chart">
-                            <a href="/trends?id={{$course->id}}">
+                            <a href="/trends?courseId={{$course->id}}">
                                 <div class="chart-icon"></div>
                             </a>
                         </div>
