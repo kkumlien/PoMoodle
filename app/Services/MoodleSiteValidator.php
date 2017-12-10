@@ -16,9 +16,6 @@ class MoodleSiteValidator
      */
     public function validateMoodleSite(string $moodleSite)
     {
-
-        //TODO - create MoodleSite model and return that instead of array
-
         $results = DB::select('SELECT site_id, site_url FROM pm_sites WHERE site_url = ?'
             . ' OR site_alias = ?', [$moodleSite, $moodleSite]);
 
@@ -29,7 +26,6 @@ class MoodleSiteValidator
         }
 
         return null;
-
     }
 
 }

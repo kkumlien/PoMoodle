@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
  * Class MoodleDataStorage
  * @package App\Services
  */
-class MoodleDataStorage //TODO rename to DataStorage
+class MoodleDataStorage
 {
     /**
      * Stores user data from Moodle containing user and course information if the user doesn't exist has and returns the
