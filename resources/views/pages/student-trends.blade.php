@@ -11,7 +11,7 @@
         @include('layouts.header')
         @include('layouts.menu')
 
-        <div class="content">
+        <div class="content" style="margin-bottom: 50px">
 
             <line-chart chart-title="vm.chartTitle" categories="vm.categories" series="vm.series"></line-chart>
 
