@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MoodleSiteValidator
 {
@@ -21,10 +22,10 @@ class MoodleSiteValidator
         $results = DB::select('SELECT site_id, site_url FROM pm_sites WHERE site_url = ?'
             . ' OR site_alias = ?', [$moodleSite, $moodleSite]);
 
+        Log::debug(print_r($results, true));
+
         if (!empty($results)) {
-
             return $results[0];
-
         }
 
         return null;
