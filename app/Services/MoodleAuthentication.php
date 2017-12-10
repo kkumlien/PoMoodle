@@ -3,8 +3,10 @@
 namespace App\Services;
 
 
+use App\Exceptions\MoodleSiteException;
 use App\Models\MoodleToken;
 use App\Utils\UrlBuilder;
+use Exception;
 
 class MoodleAuthentication
 {
@@ -48,7 +50,11 @@ class MoodleAuthentication
             ->with('service', 'moodle_mobile_app')
             ->build();
 
-        $moodleToken = $this->httpJsonResponseService->getResponseAsObject($url, new MoodleToken());
+        try {
+            $moodleToken = $this->httpJsonResponseService->getResponseAsObject($url, new MoodleToken());
+        } catch (Exception $exception) {
+            throw new MoodleSiteException();
+        }
 
         if (!empty($moodleToken->token)) {
             return $moodleToken->token;

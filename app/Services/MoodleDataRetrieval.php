@@ -9,7 +9,7 @@ use App\Models\Course;
 use App\Models\Topic;
 use App\Models\User;
 use App\Utils\UrlBuilder;
-use GuzzleHttp\Exception\ServerException;
+use Exception;
 
 /**
  * Retrieves data from Moodle using its REST API.
@@ -63,8 +63,8 @@ class MoodleDataRetrieval
             $user = $this->getUserInfo();
             $user->courses = $this->getUserCourses($user->userid);
             $this->populateUserCourseData($user);
-        } catch (ServerException $exception) {
-            throw new MoodleSiteException('Moodle site is down');
+        } catch (Exception $exception) {
+            throw new MoodleSiteException();
         }
 
         return $user;
